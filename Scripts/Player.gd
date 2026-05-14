@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 #State Vars
+@export var isClone = 0
 var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all states
 var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
@@ -20,6 +21,11 @@ var landingStretch = 0.5 #y scale of PlayerSprite when you land
 
 var jumpingSquash = 0.5 #x scale of PlayerSprite when you jump
 var jumpingStretch = 1.5 #y scale of PlayerSprite when you jump
+
+#Recording and playback vars
+var recordedInputs : Array[InputFrame] = []
+var isRecordingInput = 1
+var playbackIndex = 0
 
 #Input Vars
 var movementInput = 0 #will be 1, -1, 0 depending on if you are holding right, left, or nothing
@@ -91,11 +97,17 @@ func _ready():
 
 
 func _physics_process(delta):
-	get_input()
+	if isClone:
+		clone_set_input(recordedInputs)
+	else:
+		get_input()
+		if isRecordingInput: record_input()
 	
 	apply_gravity(delta)
 	
 	call(currentState + "_logic", delta) #call the current states main method
+	
+	
 	
 	#set_velocity(velocity)
 	#set_up_direction(Vector2.UP)
@@ -106,12 +118,14 @@ func _physics_process(delta):
 	
 	PlayerSprite.flip_h = lastDirection - 1 #flip sprite depending on which direction you last moved in
 
+
 func get_input():
-	#set input vars
+	#(player) set input vars
 	movementInput = Input.get_action_strength("right") - Input.get_action_strength("left") #set movement input to 1,-1, or 0
 	if movementInput != 0:
 		lastDirection = movementInput #set last direction if movement input isnt 0
 	
+	Input.is_action_just_pressed("Rollback") #does nothing rn
 	
 	isJumpPressed = Input.is_action_just_pressed("jump") 
 	isJumpReleased = Input.is_action_just_released("jump")
@@ -130,6 +144,48 @@ func get_input():
 		coyoteStartTime = 0 #reset timer
 	
 	isDashPressed = Input.is_action_just_pressed("dash")
+
+func record_input():
+	# (player) save inputs that got read this frame
+	var frame = InputFrame.new()
+
+	frame.movementInput = movementInput
+	frame.lastDirection = lastDirection
+
+	frame.isJumpPressed = isJumpPressed
+	frame.isJumpReleased = isJumpReleased
+
+	frame.coyoteStartTime = coyoteStartTime
+	frame.elapsedCoyoteTime = elapsedCoyoteTime
+	frame.coyoteDuration = coyoteDuration
+
+	frame.jumpInput = jumpInput
+
+	frame.isDashPressed = isDashPressed
+
+	recordedInputs.append(frame)
+
+func clone_set_input(recordedInputs):
+	#(clone) read inputs for this frame from recorded inputs
+	if playbackIndex > recordedInputs.size():
+		return
+	var frame = recordedInputs[playbackIndex]
+	
+	movementInput = frame.movementInput
+	lastDirection = frame.lastDirection
+
+	isJumpPressed = frame.isJumpPressed
+	isJumpReleased = frame.isJumpReleased
+
+	coyoteStartTime = frame.coyoteStartTime
+	elapsedCoyoteTime = frame.elapsedCoyoteTime
+	coyoteDuration = frame.coyoteDuration
+
+	jumpInput = frame.jumpInput
+
+	isDashPressed = frame.isDashPressed
+
+	playbackIndex += 1
 
 
 func apply_gravity(delta):
@@ -232,7 +288,7 @@ func run_exit_logic():
 
 func fall_enter_logic():
 	Anim.play("Fall") #play the fall animation
-	print("a")
+	#print("a")
 
 func fall_logic(delta):
 	move_horizontally(airFriction) #move horizontally
