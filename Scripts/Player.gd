@@ -167,7 +167,12 @@ func record_input():
 
 func clone_set_input(recordedInputs):
 	#(clone) read inputs for this frame from recorded inputs
-	if playbackIndex > recordedInputs.size():
+	if playbackIndex >= recordedInputs.size():
+		movementInput = 0
+		isJumpPressed = 0
+		isJumpReleased = 0
+		jumpInput = 0
+		isDashPressed = 0
 		return
 	var frame = recordedInputs[playbackIndex]
 	
