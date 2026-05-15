@@ -1,11 +1,14 @@
-[gd_scene load_steps=6 format=4 uid="uid://dp3u5wef4s2o6"]
+[gd_scene load_steps=12 format=4 uid="uid://17hhfbqxvtmc"]
 
-[ext_resource type="PackedScene" uid="uid://tenhrooodnd5" path="res://Objects/Player.tscn" id="1"]
-[ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_8bwi6"]
-[ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2"]
+[ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ro7sx"]
+[ext_resource type="PackedScene" uid="uid://tenhrooodnd5" path="res://Objects/Player.tscn" id="2_q3k1l"]
+[ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="3_1wkqg"]
+[ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_4unbu"]
+[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/platform.tscn" id="5_q3k1l"]
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="6_1wkqg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4uqp"]
-texture = ExtResource("2")
+texture = ExtResource("3_1wkqg")
 0:0/next_alternative_id = 8
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -6301,11 +6304,48 @@ texture = ExtResource("2")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_u4uqp")
 
-[node name="DemoLevel" type="Node2D"]
-script = ExtResource("1_8bwi6")
+[sub_resource type="Animation" id="Animation_q3k1l"]
+resource_name = "move_up_down"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(421, 61), Vector2(421, 158)]
+}
 
-[node name="Player" parent="." instance=ExtResource("1")]
-position = Vector2(161, 170)
+[sub_resource type="Animation" id="Animation_1wkqg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(133, 138)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4unbu"]
+_data = {
+&"RESET": SubResource("Animation_1wkqg"),
+&"move_up_down": SubResource("Animation_q3k1l")
+}
+
+[node name="DemoLevel" type="Node2D"]
+script = ExtResource("1_ro7sx")
+
+[node name="Player" parent="." instance=ExtResource("2_q3k1l")]
+position = Vector2(137, 170)
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -6314,3 +6354,19 @@ tile_set = SubResource("152")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(240, 135)
+zoom = Vector2(2, 2)
+
+[node name="PlayerStart" parent="." instance=ExtResource("4_4unbu")]
+position = Vector2(135, 192)
+
+[node name="Platform" parent="." instance=ExtResource("5_q3k1l")]
+position = Vector2(133, 138)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+libraries = {
+&"": SubResource("AnimationLibrary_4unbu")
+}
+autoplay = "move_up_down"
+
+[node name="PlayerEnd" parent="." instance=ExtResource("6_1wkqg")]
+position = Vector2(422, 54)

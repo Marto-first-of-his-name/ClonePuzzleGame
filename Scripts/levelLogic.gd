@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var player_start: Node2D = $PlayerStart
 @onready var player = $Player
 @export var maxClonesForLevel: int
 
@@ -27,7 +28,7 @@ func spawn_clone():
 	var clone = player_scene.instantiate()
 	currentCloneIndex += 1
 	clone.cloneIndex = currentCloneIndex
-	clone.position = Vector2(220.0, 177.0)
+	clone.position = player_start.position + Vector2(0, -20.0)
 	clone.recordedInputs = player.recordedInputs.duplicate(true)
 	
 	add_child(clone)
