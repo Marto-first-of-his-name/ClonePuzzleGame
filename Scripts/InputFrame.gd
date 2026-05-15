@@ -10,7 +10,6 @@ var isJumpReleased := false
 
 var coyoteStartTime := 0
 var elapsedCoyoteTime := 0
-var coyoteDuration := 100
 
 var jumpInput := 0
 

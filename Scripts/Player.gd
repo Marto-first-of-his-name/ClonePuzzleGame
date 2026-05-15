@@ -157,7 +157,6 @@ func record_input():
 
 	frame.coyoteStartTime = coyoteStartTime
 	frame.elapsedCoyoteTime = elapsedCoyoteTime
-	frame.coyoteDuration = coyoteDuration
 
 	frame.jumpInput = jumpInput
 
@@ -184,7 +183,6 @@ func clone_set_input(recordedInputs):
 
 	coyoteStartTime = frame.coyoteStartTime
 	elapsedCoyoteTime = frame.elapsedCoyoteTime
-	coyoteDuration = frame.coyoteDuration
 
 	jumpInput = frame.jumpInput
 
