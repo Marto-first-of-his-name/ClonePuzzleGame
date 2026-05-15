@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var player_start: Node2D = $PlayerStart
 @onready var player = $Player
-@export var maxClonesForLevel: int
 
 var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
 var clones : Array[Player]
@@ -32,6 +31,7 @@ func spawn_clone():
 	clone.recordedInputs = player.recordedInputs.duplicate(true)
 	
 	add_child(clone)
+	player_start.clonesLeft -= 1
 	
 	return clone
 

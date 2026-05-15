@@ -6358,6 +6358,7 @@ zoom = Vector2(2, 2)
 
 [node name="PlayerStart" parent="." instance=ExtResource("4_4unbu")]
 position = Vector2(135, 192)
+maxClonesForLevel = 1
 
 [node name="Platform" parent="." instance=ExtResource("5_q3k1l")]
 position = Vector2(133, 138)
