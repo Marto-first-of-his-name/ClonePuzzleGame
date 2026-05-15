@@ -1,14 +1,17 @@
 extends Node2D
 
 @onready var player = $Player
+@export var maxClonesForLevel: int
 
-var clone
+var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
+var clones : Array[Player]
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().create_timer(3.0).timeout
-	clone = spawn_clone()
-	var newframe = InputFrame.new()
+	clones.append(spawn_clone())
+	set_clones_opacity()
 	pass
 	
 	
@@ -22,10 +25,16 @@ func spawn_clone():
 	var player_scene = preload("res://Objects/Player.tscn")
 
 	var clone = player_scene.instantiate()
-
-	clone.isClone = 1
+	currentCloneIndex += 1
+	clone.cloneIndex = currentCloneIndex
 	clone.position = Vector2(220.0, 177.0)
 	clone.recordedInputs = player.recordedInputs.duplicate(true)
 	
 	add_child(clone)
+	
 	return clone
+
+func set_clones_opacity():
+	for clone in clones:
+		var opacity = 1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1)
+		clone.PlayerSprite.modulate = Color(1,1,1,opacity)

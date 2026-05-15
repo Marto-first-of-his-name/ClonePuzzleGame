@@ -1,7 +1,8 @@
 extends CharacterBody2D
+class_name Player
 
 #State Vars
-@export var isClone = 0
+@export var cloneIndex = 0 # 0 is player, 1 is the first spawned clone, 2 the second, etc
 var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all states
 var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
@@ -97,7 +98,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if isClone:
+	if cloneIndex > 0:
 		clone_set_input(recordedInputs)
 	else:
 		get_input()
@@ -113,6 +114,7 @@ func _physics_process(delta):
 	#set_up_direction(Vector2.UP)
 	move_and_slide()
 	#velocity = velocity #aply velocity to movement
+	
 	
 	recover_sprite_scale()
 	
