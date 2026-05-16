@@ -37,7 +37,6 @@ size = Vector2(20, 4)
 size = Vector2(16, 7)
 
 [node name="Button" type="AnimatableBody2D"]
-collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_schvp")
 

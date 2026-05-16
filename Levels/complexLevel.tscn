@@ -6370,8 +6370,11 @@ autoplay = "move_up_down"
 [node name="PlayerEnd" parent="." instance=ExtResource("5_c3nf2")]
 position = Vector2(501, 48)
 
-[node name="Area2D" parent="." instance=ExtResource("6_leldi")]
+[node name="Area2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_leldi")]
 position = Vector2(49, 173)
+target = NodePath("../Door")
+methodName = "open_close_door"
 
 [node name="Door" parent="." instance=ExtResource("7_g25s8")]
 position = Vector2(214, 166)
+startClosed = true

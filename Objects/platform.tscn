@@ -1,14 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://u2ktiv8bktbm"]
 
-[ext_resource type="Texture2D" uid="uid://ftth3ut3wqya" path="res://Sprites/platforms.png" id="1_ygx5w"]
+[ext_resource type="Texture2D" uid="uid://ftth3ut3wqya" path="res://Sprites/platforms.png" id="1_eifws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8bxr"]
 size = Vector2(32, 8)
 
 [node name="Platform" type="AnimatableBody2D"]
+collision_mask = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ygx5w")
+texture = ExtResource("1_eifws")
 region_enabled = true
 region_rect = Rect2(16, 0, 32, 9)
 
