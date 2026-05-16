@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ro7sx"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="3_1wkqg"]
 [ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_4unbu"]
-[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/platform.tscn" id="5_q3k1l"]
+[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/Platform.tscn" id="5_q3k1l"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="6_1wkqg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4uqp"]

@@ -36,7 +36,7 @@ size = Vector2(20, 4)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_schvp"]
 size = Vector2(16, 7)
 
-[node name="Button" type="RigidBody2D"]
+[node name="Button" type="AnimatableBody2D"]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_schvp")

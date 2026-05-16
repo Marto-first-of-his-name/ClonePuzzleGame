@@ -1,6 +1,7 @@
-[gd_scene load_steps=70 format=3 uid="uid://cjjb3avh5r7hf"]
+[gd_scene load_steps=71 format=3 uid="uid://cjjb3avh5r7hf"]
 
 [ext_resource type="Texture2D" uid="uid://btka8m100ipsy" path="res://Sprites/door.png" id="1_5xojw"]
+[ext_resource type="Script" uid="uid://d2en0vdk4dli5" path="res://Scripts/door.gd" id="1_vkudc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5xojw"]
 size = Vector2(8, 52)
@@ -483,6 +484,7 @@ animations = [{
 [node name="Door" type="AnimatableBody2D"]
 collision_layer = 4
 collision_mask = 5
+script = ExtResource("1_vkudc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5xojw")

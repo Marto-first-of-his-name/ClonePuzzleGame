@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends AnimatableBody2D
 
 var isPressed = 0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D

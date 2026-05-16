@@ -198,7 +198,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8umg"]
 size = Vector2(28, 57)
 
-[node name="PlayerEnd" type="RigidBody2D"]
+[node name="PlayerEnd" type="AnimatableBody2D"]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_glqdn")
