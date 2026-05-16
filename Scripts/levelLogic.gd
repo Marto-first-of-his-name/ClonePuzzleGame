@@ -43,7 +43,6 @@ func spawn_player():
 #spawned clone instantly plays back the recordings
 func spawn_clone():
 	var clone = player_scene.instantiate()
-	currentCloneIndex += 1
 	clone.cloneIndex = currentCloneIndex
 	clone.position = player_start.position
 	clone.recordedInputs = player.recordedInputs.duplicate(true)
@@ -56,15 +55,17 @@ func spawn_clone():
 	
 	return clone
 
-func set_clones_opacity():
-	for clone in clones:
-		var opacity = 1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1)
-		clone.PlayerSprite.modulate = Color(1,1,1,opacity)
+#sets clones opacity based on how recent it is.
+func set_clone_opacity(clone):
+	var opacity = 1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1)
+	clone.PlayerSprite.modulate = Color(1,1,1,opacity)
 
 func _rollback():
 	if currentCloneIndex >= maxClonesForLevel:
 		print("can't rollback coz reached limit")
 		return
+	
+	currentCloneIndex += 1
 	
 	# reset and hide player and clones we already had
 	player.position = player_start.position
@@ -78,10 +79,12 @@ func _rollback():
 	for clone in clones:
 		await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 		enable_disable_player_or_clone(clone)
+		set_clone_opacity(clone)
 	
 	#spawn the newest clone
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	clones.append(spawn_clone())
+	set_clone_opacity(clones[-1])
 	
 	#enable player
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout

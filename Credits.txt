@@ -2,3 +2,4 @@ Template used: https://suppersaif.itch.io/godot-platformer-template
 Door adapted from: https://lizcheong.itch.io/pixel-portal
 Mario pipe Image by OpenClipart-Vectors from Pixabay
 Scifi door from https://pixel900.itch.io/sci-fi-door
+Cables by https://karsiori.itch.io/pixel-art-pipes-and-cables-modular/download/eyJpZCI6NDU2MjUyOCwiZXhwaXJlcyI6MTc3ODk1MTA5Nn0%3d%2eumuLQpF%2fM%2b4UPHJsk31YforUygo%3d

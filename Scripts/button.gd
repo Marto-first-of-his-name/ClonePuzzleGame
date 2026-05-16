@@ -7,13 +7,10 @@ var isPressed = 0
 
 var bodiesPressing: Array[PhysicsBody2D]
 
-signal buttonInteracted # args 1 for pressed and 0 for released
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
+	animated_sprite_2d.play("idle")
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
