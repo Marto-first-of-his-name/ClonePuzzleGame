@@ -14,7 +14,7 @@ var player #reference to the current player
 @export var timeToWaitBetweenCloneSpawns = 1.0
 
 signal levelWon
-signal gameLost
+signal levelLost
  
 var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
 var clones : Array[Player]
@@ -26,7 +26,7 @@ var player_end
 #to be called at the start and after every to_reset_scene reset
 func instantiate_vars_and_connect_signals_on_to_reset_scene_ready():
 	player_end = nodes_to_reset.get_node("PlayerEnd")
-	player_end.endDoorReached.connect(_levelWon)
+	player_end.endDoorReached.connect(_level_won)
 	
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +38,8 @@ func _ready() -> void:
 	
 	player_scene = preload("res://Objects/Player.tscn")
 	spawn_player()
-	player.rollbackSignal.connect(_rollback)
+	if not timers.is_empty(): start_timer_and_connect_signal(timers[0])
+	player.rollbackSignal.connect(rollback)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -74,10 +75,10 @@ func spawn_clone():
 
 #sets clones opacity based on how recent it is.
 func set_clone_opacity(clone):
-	var opacity = 1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1)
+	var opacity = clamp(1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1), 0.3, 1.0)
 	clone.PlayerSprite.modulate = Color(1,1,1,opacity)
 
-func _rollback():
+func rollback():
 	if currentCloneIndex >= maxClonesForLevel:
 		print("can't rollback coz reached limit")
 		return
@@ -113,6 +114,11 @@ func _rollback():
 	#enable player
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	enable_disable_player_or_clone(player)
+	
+	#start the next timer
+	if not timers.is_empty(): 
+		if currentCloneIndex < timers.size():
+			start_timer_and_connect_signal(timers[currentCloneIndex])
 
 # hides/shows player/clone and enables/disables physics
 func enable_disable_player_or_clone(playerOrClone):
@@ -120,9 +126,29 @@ func enable_disable_player_or_clone(playerOrClone):
 	playerOrClone.collision_shape.disabled = not playerOrClone.collision_shape.disabled
 	playerOrClone.set_physics_process(not playerOrClone.is_physics_processing())
 
+func start_timer_and_connect_signal(seconds):
+	var timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = seconds
+	add_child(timer)
+	timer.timeout.connect(_on_timer_timeout)
+	timer.start()
+	
+# do a rollback each time a "life" timer times out
+func _on_timer_timeout():
+	if currentCloneIndex >= maxClonesForLevel:
+		level_lost()
+	else:
+		rollback()
+
 #body is the body that entered the door at the end
-func _levelWon(body):
+func _level_won(body):
 	print(str("good job, you won by reaching the door with ", body.cloneIndex))
 	body.queue_free()
 	levelWon.emit()
+	get_tree().paused = true
+
+func level_lost():
+	print(str("RIP, you lost"))
+	levelLost.emit()
 	get_tree().paused = true
