@@ -37,11 +37,10 @@ func play_anim_backward_from_current_frame():
 	animated_sprite_2d.play(current_animation, 0.0 - current_playing_speed)
 	animated_sprite_2d.set_frame_and_progress(current_frame, current_progress)
 
-
+# only disable collision when door is FULLY open.
 func _on_animated_sprite_2d_animation_finished() -> void:
 	var current_animation = animated_sprite_2d.animation
 	var current_frame = animated_sprite_2d.get_frame()
-	print(str(current_animation, current_frame))
 	
 	if current_animation == "opens":
 		if current_frame == 0: #door closed
@@ -49,12 +48,10 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			pass
 		else: #door open
 			enable_disable_collision(0)
-			print("remov1")
 		
 	else: #current anim is closes
 		if current_frame == 0: #door open
 			enable_disable_collision(0)
-			print("remov2")
 		else: #door closed
 			#enable_disable_collision(1)
 			pass

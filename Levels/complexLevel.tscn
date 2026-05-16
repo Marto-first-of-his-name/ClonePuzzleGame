@@ -6377,4 +6377,3 @@ methodName = "open_close_door"
 
 [node name="Door" parent="." instance=ExtResource("7_g25s8")]
 position = Vector2(214, 166)
-startClosed = true
