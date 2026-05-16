@@ -1,224 +1,32 @@
-[gd_scene load_steps=32 format=3 uid="uid://kpb6uen3l38s"]
+[gd_scene load_steps=4 format=3 uid="uid://kpb6uen3l38s"]
 
 [ext_resource type="Script" uid="uid://cdu2bcdwk3mqi" path="res://Scripts/player_start.gd" id="1_5wo60"]
-[ext_resource type="Texture2D" uid="uid://b2mfxv5es78tv" path="res://Sprites/portal_green.png" id="1_w8umg"]
-[ext_resource type="Texture2D" uid="uid://b7m7n7l5re4yj" path="res://Sprites/portal_grey.png" id="2_5wo60"]
-[ext_resource type="Texture2D" uid="uid://v8dk2wxoot68" path="res://Sprites/portal_red.png" id="3_ybmde"]
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_w8umg"]
-a = Vector2(-21, -0.5)
-b = Vector2(20, -0.5)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tstl0"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(10, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qwy3q"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(74, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d7alj"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(138, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_607bl"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(202, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ccs8"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(266, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjpf8"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(330, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t57wo"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(394, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qa61f"]
-atlas = ExtResource("1_w8umg")
-region = Rect2(458, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_71qu2"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(10, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j243c"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(74, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_srxay"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(138, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w7dc1"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(202, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s2iwv"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(266, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a11jh"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(330, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x76j0"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(394, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pjchp"]
-atlas = ExtResource("2_5wo60")
-region = Rect2(458, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x000t"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(10, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s7g0c"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(74, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gmubn"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(138, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6m56f"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(202, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3knae"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(266, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_li8hm"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(330, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_geh67"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(394, 0, 43, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m2w78"]
-atlas = ExtResource("3_ybmde")
-region = Rect2(458, 0, 43, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qiqnj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tstl0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qwy3q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d7alj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_607bl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ccs8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fjpf8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t57wo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qa61f")
-}],
-"loop": true,
-"name": &"portal_green",
-"speed": 8.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_71qu2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j243c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_srxay")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w7dc1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s2iwv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a11jh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x76j0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pjchp")
-}],
-"loop": true,
-"name": &"portal_grey",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x000t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s7g0c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gmubn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6m56f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3knae")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_li8hm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_geh67")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m2w78")
-}],
-"loop": true,
-"name": &"portal_red",
-"speed": 8.0
-}]
+[ext_resource type="Texture2D" uid="uid://c1fr4unu1gag4" path="res://Sprites/openclipart-vectors-super-mario-brothers-147465.svg" id="2_ybmde"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8umg"]
-size = Vector2(28, 57)
+size = Vector2(26, 42)
 
-[node name="PlayerStart" type="Node2D"]
+[node name="PlayerStart" type="Area2D"]
+z_index = 10
+collision_mask = 2
 script = ExtResource("1_5wo60")
 
-[node name="CollisionFloor" type="RigidBody2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionFloor"]
-shape = SubResource("SegmentShape2D_w8umg")
-
-[node name="DoorItself" type="Area2D" parent="CollisionFloor"]
-collision_mask = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionFloor/DoorItself"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, -32)
-sprite_frames = SubResource("SpriteFrames_qiqnj")
-animation = &"portal_grey"
-autoplay = "portal_grey"
+position = Vector2(-1.9073486e-06, -14.839647)
+rotation = -3.1415927
+scale = Vector2(0.07284113, 0.07284113)
+texture = ExtResource("2_ybmde")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionFloor/DoorItself"]
-position = Vector2(0, -30.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14.839645)
 shape = SubResource("RectangleShape2D_w8umg")
 
-[connection signal="body_entered" from="CollisionFloor/DoorItself" to="." method="_on_door_itself_body_entered"]
+[node name="Label" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -26.839645
+offset_right = 21.0
+offset_bottom = -3.8396454
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 #State Vars
-@export var cloneIndex = 0 # 0 is player, 1 is the first spawned clone, 2 the second, etc
+var cloneIndex = 0 # 0 is player, 1 is the first spawned clone, 2 the second, etc
 var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all states
 var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
@@ -10,6 +10,8 @@ var previousState = null #last state that was being calles
 #Nodes & paths
 @onready var PlayerSprite = $Sprite2D #path to the player's sprite
 @onready var Anim = $AnimationPlayer #path to animation player
+
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 @onready var RightRaycast = $RightRaycast #path to the right raycast
 @onready var LeftRaycast = $LeftRaycast  #path to the left raycast
@@ -23,12 +25,17 @@ var landingStretch = 0.5 #y scale of PlayerSprite when you land
 var jumpingSquash = 0.5 #x scale of PlayerSprite when you jump
 var jumpingStretch = 1.5 #y scale of PlayerSprite when you jump
 
-#Recording and playback vars
+#Recording and playback 
 var recordedInputs : Array[InputFrame] = []
 var isRecordingInput = 1
+var isPlayingBack = 0
 var playbackIndex = 0
+var rollbackInput = 0 #will be 1 once rollback is pressed
+signal rollbackSignal #shall be emitted when rollbackInput is 1
 
 #Input Vars
+var inputEnabled = 1 # set to 0 to prevent input from player
+
 var movementInput = 0 #will be 1, -1, 0 depending on if you are holding right, left, or nothing
 var lastDirection = 1 #last direction pressed that is not 0
 
@@ -86,6 +93,7 @@ var wallSlideSpeed = 50 #how fast you slide on a wll
 #wall jump
 var wallJumpHeight = 128 #how high you want the peak of your wall jump to be in pixels
 var wallJumpVelocity #how much to apply to velocity.y to reach wall jump height
+var wallJumpThrust = 50 # horizontal thrust in the look direction when wall jumping
 
 
 #functions
@@ -93,18 +101,22 @@ func _ready():
 	#use kin functions to set jump velocites
 	jumpVelocity = -sqrt(2 * gravity * jumpHeight) 
 	doubleJumpVelocity = -sqrt(2 * gravity * doubleJumpHeight) 
-	
 	wallJumpVelocity = -sqrt(2 * gravity * jumpHeight)
-
 
 func _physics_process(delta):
 	if cloneIndex > 0:
-		clone_set_input(recordedInputs)
-	else:
-		get_input()
-		if isRecordingInput: record_input()
+		if isPlayingBack:
+			clone_set_input(recordedInputs)
+	else: # is player
+		if inputEnabled:
+			get_input()
+			if isRecordingInput: record_input()
 	
-	apply_gravity(delta)
+	if rollbackInput:
+		rollbackSignal.emit()
+		rollbackInput = 0
+	
+	apply_gravity(delta) 
 	
 	call(currentState + "_logic", delta) #call the current states main method
 	
@@ -127,7 +139,7 @@ func get_input():
 	if movementInput != 0:
 		lastDirection = movementInput #set last direction if movement input isnt 0
 	
-	Input.is_action_just_pressed("Rollback") #does nothing rn
+	rollbackInput = Input.is_action_just_pressed("Rollback")
 	
 	isJumpPressed = Input.is_action_just_pressed("jump") 
 	isJumpReleased = Input.is_action_just_released("jump")
@@ -471,9 +483,7 @@ func wall_jump_enter_logic():
 func wall_jump_logic(delta):
 	move_horizontally(airFriction) #move horizontally
 	
-	#if you want to add a wall jump thrust you can do so by:
-	#deifining a wallJumpThrust variable
-	#and putting velocity.x += wallJumpThrust * lastDirection here
+	velocity.x += wallJumpThrust * lastDirection
 	
 	if velocity.y < 0:
 		#if you are rising

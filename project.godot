@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="ClonePuzzleGame"
-run/main_scene="uid://17hhfbqxvtmc"
+run/main_scene="uid://buu6usnyfh5le"
 config/features=PackedStringArray("4.5")
 run/max_fps=60
 config/icon="res://icon.png"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 

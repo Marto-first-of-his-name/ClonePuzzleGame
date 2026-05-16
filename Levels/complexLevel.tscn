@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=4 uid="uid://17hhfbqxvtmc"]
+[gd_scene load_steps=11 format=4 uid="uid://buu6usnyfh5le"]
 
-[ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ro7sx"]
-[ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="3_1wkqg"]
-[ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_4unbu"]
-[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/platform.tscn" id="5_q3k1l"]
-[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="6_1wkqg"]
+[ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ceqdm"]
+[ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_xbxg7"]
+[ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="3_r8gm0"]
+[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/platform.tscn" id="4_fia8b"]
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="5_bvvme"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4uqp"]
-texture = ExtResource("3_1wkqg")
+texture = ExtResource("2_xbxg7")
 0:0/next_alternative_id = 8
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -6341,7 +6341,7 @@ _data = {
 }
 
 [node name="DemoLevel" type="Node2D"]
-script = ExtResource("1_ro7sx")
+script = ExtResource("1_ceqdm")
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -6352,11 +6352,11 @@ tile_set = SubResource("152")
 position = Vector2(240, 135)
 zoom = Vector2(2, 2)
 
-[node name="PlayerStart" parent="." instance=ExtResource("4_4unbu")]
+[node name="PlayerStart" parent="." instance=ExtResource("3_r8gm0")]
 position = Vector2(44, 4)
 maxClonesForLevel = 3
 
-[node name="Platform" parent="." instance=ExtResource("5_q3k1l")]
+[node name="Platform" parent="." instance=ExtResource("4_fia8b")]
 position = Vector2(133, 138)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
@@ -6365,5 +6365,5 @@ libraries = {
 }
 autoplay = "move_up_down"
 
-[node name="PlayerEnd" parent="." instance=ExtResource("6_1wkqg")]
+[node name="PlayerEnd" parent="." instance=ExtResource("5_bvvme")]
 position = Vector2(423, 33)
