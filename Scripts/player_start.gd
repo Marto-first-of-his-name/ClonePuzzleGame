@@ -1,4 +1,4 @@
-extends Node2D
+extends AnimatableBody2D
 
 @export var maxClonesForLevel: int
 @onready var label: Label = $Label

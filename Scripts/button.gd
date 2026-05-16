@@ -5,7 +5,7 @@ var isPressed = 0
 
 var bodiesPressing: Array[PhysicsBody2D]
 
-signal buttonPressed
+signal buttonInteracted # args 1 for pressed and 0 for released
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,12 +17,14 @@ func _process(delta: float) -> void:
 	pass
 
 func set_pressed():
-	var buttonIsPressed = not bodiesPressing.is_empty()
-	if buttonIsPressed:
+	var buttonShouldBePressed = not bodiesPressing.is_empty()
+	if buttonShouldBePressed and not isPressed: #i.e. state change from idle to pressed
 		isPressed = 1
+		buttonInteracted.emit(1)
 		animated_sprite_2d.play("pressed")
-	else:
+	elif not buttonShouldBePressed and isPressed: #i.e. state change from pressed to idle
 		isPressed = 0
+		buttonInteracted.emit(0)
 		animated_sprite_2d.play("idle")
 
 # something touches the button's top
