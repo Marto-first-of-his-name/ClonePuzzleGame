@@ -1,10 +1,14 @@
 extends Node2D
 
 @export var timers: Array[float]
+@onready var nodes_to_reset: Node2D = $NodesToReset
 
 @onready var player_start: Node2D = $PlayerStart
-@onready var player_end: Node2D = $PlayerEnd
 @onready var maxClonesForLevel = player_start.maxClonesForLevel
+
+var current_scene_path # path of the current level
+var to_reset_scene_path # path to the scene that has everything that needs resetting
+var to_reset_scene # scene preloaded to be instantiated later on rollback
 
 var player #reference to the current player
 @export var timeToWaitBetweenCloneSpawns = 1.0
@@ -16,12 +20,25 @@ var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already 
 var clones : Array[Player]
 var player_scene
 
+# vars that need reconnecting once I reset the level on rollback
+var player_end
+
+#to be called at the start and after every to_reset_scene reset
+func instantiate_vars_and_connect_signals_on_to_reset_scene_ready():
+	player_end = nodes_to_reset.get_node("PlayerEnd")
+	player_end.endDoorReached.connect(_levelWon)
+	
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	instantiate_vars_and_connect_signals_on_to_reset_scene_ready()
+	current_scene_path = get_tree().current_scene.scene_file_path
+	to_reset_scene_path = str(current_scene_path.left(-5),"ToReset.tscn")
+	to_reset_scene = load(to_reset_scene_path)
+	
 	player_scene = preload("res://Objects/Player.tscn")
 	spawn_player()
 	player.rollbackSignal.connect(_rollback)
-	player_end.endDoorReached.connect(_levelWon)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -74,6 +91,13 @@ func _rollback():
 		clone.position = player_start.position
 		clone.playbackIndex = 0
 		enable_disable_player_or_clone(clone)
+	
+	# reset interactables and animatables in level
+	var new_to_reset_scene = to_reset_scene.instantiate()
+	nodes_to_reset.queue_free()
+	add_child(new_to_reset_scene)
+	nodes_to_reset = new_to_reset_scene
+	instantiate_vars_and_connect_signals_on_to_reset_scene_ready() #reconnect stuff to new scene
 	
 	#play the clones we already had
 	for clone in clones:

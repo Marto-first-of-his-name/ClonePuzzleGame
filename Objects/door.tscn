@@ -3,9 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://btka8m100ipsy" path="res://Sprites/door.png" id="1_5xojw"]
 [ext_resource type="Script" uid="uid://d2en0vdk4dli5" path="res://Scripts/door.gd" id="1_vkudc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xojw"]
-size = Vector2(8, 47)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_vkudc"]
 atlas = ExtResource("1_5xojw")
 region = Rect2(5509, 52, 16, 53)
@@ -481,6 +478,9 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xojw"]
+size = Vector2(8, 47)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ihvk"]
 size = Vector2(10, 5.5)
 
@@ -488,13 +488,13 @@ size = Vector2(10, 5.5)
 collision_mask = 5
 script = ExtResource("1_vkudc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_5xojw")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_idn2a")
 animation = &"closes"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_5xojw")
 
 [node name="CollidiongTopOfDoor" type="CollisionShape2D" parent="."]
 position = Vector2(0, -23.75)
