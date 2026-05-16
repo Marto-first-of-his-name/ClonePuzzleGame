@@ -11,7 +11,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(collision_shape_2d.disabled)
 	pass
 
 func open_close_door(shouldOpen):
@@ -22,7 +21,6 @@ func open_close_door(shouldOpen):
 			animated_sprite_2d.play("opens")
 	else:
 		enable_disable_collision(1)
-		print("closed?")
 		print(collision_shape_2d.disabled)
 		if animated_sprite_2d.is_playing():
 			play_anim_backward_from_current_frame()
