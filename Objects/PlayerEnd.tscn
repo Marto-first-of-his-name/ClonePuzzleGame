@@ -198,27 +198,27 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w8umg"]
 size = Vector2(28, 57)
 
-[node name="PlayerEnd" type="Node2D"]
+[node name="PlayerEnd" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_glqdn")
 
-[node name="CollisionFloor" type="RigidBody2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionFloor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("SegmentShape2D_w8umg")
 
-[node name="DoorItself" type="Area2D" parent="CollisionFloor"]
+[node name="DoorItself" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionFloor/DoorItself"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DoorItself"]
 z_index = -1
 position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_qiqnj")
 animation = &"portal_green"
 autoplay = "portal_green"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionFloor/DoorItself"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorItself"]
 position = Vector2(0, -30.5)
 shape = SubResource("RectangleShape2D_w8umg")
 
-[connection signal="body_entered" from="CollisionFloor/DoorItself" to="." method="_on_door_itself_body_entered"]
+[connection signal="body_entered" from="DoorItself" to="." method="_on_door_itself_body_entered"]

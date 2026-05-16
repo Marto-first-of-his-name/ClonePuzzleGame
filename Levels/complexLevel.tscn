@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://buu6usnyfh5le"]
+[gd_scene load_steps=12 format=4 uid="uid://buu6usnyfh5le"]
 
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ceqdm"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_xbxg7"]
 [ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="3_r8gm0"]
 [ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/platform.tscn" id="4_fia8b"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="5_bvvme"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="6_xbxg7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u4uqp"]
 texture = ExtResource("2_xbxg7")
@@ -6367,3 +6368,6 @@ autoplay = "move_up_down"
 
 [node name="PlayerEnd" parent="." instance=ExtResource("5_bvvme")]
 position = Vector2(423, 33)
+
+[node name="Area2D" parent="." instance=ExtResource("6_xbxg7")]
+position = Vector2(49, 173)
