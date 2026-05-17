@@ -19,6 +19,7 @@ signal levelLost
 var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
 var clones : Array[Player]
 var player_scene
+var currentTimer
 
 # vars that need reconnecting once I reset the level on rollback
 var player_end
@@ -78,12 +79,16 @@ func set_clone_opacity(clone):
 	var opacity = clamp(1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1), 0.3, 1.0)
 	clone.PlayerSprite.modulate = Color(1,1,1,opacity)
 
-func rollback():
+#function to rollback player and spawn clones. "wasAutomatic" is 1 when called by timer, 0 when called by player signal
+func rollback(wasAutomatic):
 	if currentCloneIndex >= maxClonesForLevel:
 		print("can't rollback coz reached limit")
 		return
 	
 	currentCloneIndex += 1
+	
+	#if the rollback was manual I need to stop the current timer
+	if currentTimer: currentTimer.timeout.disconnect(_on_timer_timeout)
 	
 	# reset and hide player and clones we already had
 	player.position = player_start.position
@@ -127,19 +132,19 @@ func enable_disable_player_or_clone(playerOrClone):
 	playerOrClone.set_physics_process(not playerOrClone.is_physics_processing())
 
 func start_timer_and_connect_signal(seconds):
-	var timer = Timer.new()
-	timer.one_shot = true
-	timer.wait_time = seconds
-	add_child(timer)
-	timer.timeout.connect(_on_timer_timeout)
-	timer.start()
-	
+	currentTimer = Timer.new()
+	currentTimer.one_shot = true
+	currentTimer.wait_time = seconds
+	add_child(currentTimer)
+	currentTimer.timeout.connect(_on_timer_timeout)
+	currentTimer.start()
+
 # do a rollback each time a "life" timer times out
 func _on_timer_timeout():
 	if currentCloneIndex >= maxClonesForLevel:
 		level_lost()
 	else:
-		rollback()
+		rollback(1)
 
 #body is the body that entered the door at the end
 func _level_won(body):

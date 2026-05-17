@@ -113,7 +113,7 @@ func _physics_process(delta):
 			if isRecordingInput: record_input()
 	
 	if rollbackInput:
-		rollbackSignal.emit()
+		rollbackSignal.emit(0)
 		rollbackInput = 0
 	
 	apply_gravity(delta) 
