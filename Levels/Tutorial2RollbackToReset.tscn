@@ -9,10 +9,10 @@
 [node name="Door" parent="." instance=ExtResource("4_bk7jv")]
 position = Vector2(232, 69)
 
-[node name="Button" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_jhmwn")]
+[node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("5_jhmwn")]
 position = Vector2(-74, 96)
-target = NodePath("../Door")
-methodName = "open_close_door"
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])
 
 [node name="PlayerEnd" parent="." instance=ExtResource("6_lyquo")]
 position = Vector2(309, 97)

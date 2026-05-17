@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func update_clones_left(clonesLeftParam):
 	clonesLeft = clonesLeftParam
-	label.text = str(clonesLeft)
+	label.text = str(clonesLeft+1) #coz i include player on the pipe display
 
 func decrement_clones_left():
 	update_clones_left(clonesLeft - 1)

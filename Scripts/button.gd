@@ -2,8 +2,10 @@ extends AnimatableBody2D
 
 var isPressed = 0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@export var target: Node
-@export var methodName: String
+@export var targets: Array[Node]
+@export var methodNames: Array[String] #methodNames[i] needs to belong to targets[i]
+									#if i want to call multiple methods from one it is also doable
+									#by adding the target multiple times
 
 var bodiesPressing: Array[PhysicsBody2D]
 
@@ -17,10 +19,11 @@ func _process(delta: float) -> void:
 
 # activate is a bool: 1 does one action, 0 the other. E.g. 1 opens door, 0 closes it.
 func trigger(activate):
-	if target and target.has_method(methodName):
-		target.call(methodName, activate)
-	else:
-		print(str("no target or target has no method called ", methodName))
+	for i in targets.size():
+		if targets[i] and targets[i].has_method(methodNames[i]):
+			targets[i].call(methodNames[i], activate)
+		else:
+			print(str("no target or target has no method called ", methodNames[i]))
 
 func set_pressed():
 	var buttonShouldBePressed = not bodiesPressing.is_empty()

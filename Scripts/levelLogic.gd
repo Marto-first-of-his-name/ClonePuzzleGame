@@ -46,10 +46,8 @@ func _ready() -> void:
 	to_reset_scene = load(to_reset_scene_path)
 	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
-	#start_level() # I can make this called later when user presses space
-
-func start_level():
-	spawn_player()
+	
+	#show timers
 	if not timers.is_empty():
 		var currentTimerUIPosition = firstTimerUIPosition
 		for timer in timers:
@@ -59,6 +57,12 @@ func start_level():
 			timerUI.update_text(str(timer))
 			timerUIs.append(timerUI)
 			currentTimerUIPosition += timerUIPositionOffset
+			
+	#start_level() # I can make this called later when user presses space
+
+func start_level():
+	spawn_player()
+	if not timers.is_empty():
 		start_timer_and_connect_signal(timers[0])
 	player.rollbackSignal.connect(rollback)
 
@@ -81,6 +85,7 @@ func spawn_player():
 	player.position = player_start.position
 	
 	add_child(player)
+	player_start.decrement_clones_left()
 
 
 #spawns clone and passes it current recording from player. Returns clone to be saved in var
@@ -94,7 +99,6 @@ func spawn_clone():
 	clone.isPlayingBack = 1
 	
 	add_child(clone)
-	player_start.decrement_clones_left()
 	
 	
 	return clone
@@ -109,6 +113,8 @@ func rollback(wasAutomatic):
 	if currentCloneIndex >= maxClonesForLevel:
 		print("can't rollback coz reached limit")
 		return
+	
+	player_start.update_clones_left(maxClonesForLevel)
 	
 	currentCloneIndex += 1
 	
@@ -135,15 +141,18 @@ func rollback(wasAutomatic):
 		await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 		enable_disable_player_or_clone(clone)
 		set_clone_opacity(clone)
+		player_start.decrement_clones_left()
 	
 	#spawn the newest clone
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	clones.append(spawn_clone())
 	set_clone_opacity(clones[-1])
+	player_start.decrement_clones_left()
 	
 	#enable player
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	enable_disable_player_or_clone(player)
+	player_start.decrement_clones_left()
 	
 	#start the next timer
 	if not timers.is_empty(): 
