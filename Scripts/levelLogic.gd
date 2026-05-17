@@ -2,7 +2,7 @@ extends Node2D
 
 @export var timers: Array[float]
 @onready var nodes_to_reset: Node2D = $NodesToReset
-
+@onready var camera_2d: Camera2D = $Camera2D
 @onready var player_start: Node2D = $PlayerStart
 @onready var maxClonesForLevel = player_start.maxClonesForLevel
 
@@ -18,8 +18,13 @@ signal levelLost
  
 var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
 var clones : Array[Player]
-var player_scene
-var currentTimer
+var player_scene #stores a preload of the player scene
+var currentTimer #store the "Timer" Node that is currently running
+var timerUIs = [] #array referencing all the timers shown in game. 0 is the first run, n-1 the last one
+var timer_ui_for_each_life_scene #stores a preload of the timer ui scene
+
+var firstTimerUIPosition #where the first timer is
+var timerUIPositionOffset = Vector2(50.0, 0.0) #where the second timer is in relation to the first
 
 # vars that need reconnecting once I reset the level on rollback
 var player_end
@@ -32,22 +37,35 @@ func instantiate_vars_and_connect_signals_on_to_reset_scene_ready():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	firstTimerUIPosition = Vector2(-946.0, -524.0) / camera_2d.zoom
 	instantiate_vars_and_connect_signals_on_to_reset_scene_ready()
 	current_scene_path = get_tree().current_scene.scene_file_path
 	to_reset_scene_path = str(current_scene_path.left(-5),"ToReset.tscn")
 	to_reset_scene = load(to_reset_scene_path)
-	
+	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
+	start_level() # I can make this called later when user presses space
+
+func start_level():
 	spawn_player()
-	if not timers.is_empty(): start_timer_and_connect_signal(timers[0])
+	if not timers.is_empty():
+		var currentTimerUIPosition = firstTimerUIPosition
+		for timer in timers:
+			var timerUI = timer_ui_for_each_life_scene.instantiate()
+			add_child(timerUI)
+			timerUI.update_position(currentTimerUIPosition)
+			timerUI.update_text(str(timer))
+			timerUIs.append(timerUI)
+			currentTimerUIPosition += timerUIPositionOffset
+		start_timer_and_connect_signal(timers[0])
 	player.rollbackSignal.connect(rollback)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-
-func start_level():
-	pass
+	#update timerUIs
+	if currentTimer and not currentTimer.is_stopped():
+		var currentTimerUI = timerUIs[currentCloneIndex]
+		currentTimerUI.update_text(str(currentTimer.get_time_left()))
 
 # Spawns player at start
 func spawn_player():
@@ -154,6 +172,10 @@ func _level_won(body):
 	get_tree().paused = true
 
 func level_lost():
-	print(str("RIP, you lost"))
+	print(str("RIP, you lost. Restarting level in 3"))
 	levelLost.emit()
 	get_tree().paused = true
+	await get_tree().create_timer(3).timeout
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+	

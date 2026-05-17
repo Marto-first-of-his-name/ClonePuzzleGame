@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqeuhro1xv6ck"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_46rw1"]
+
+[node name="Tutorial1WalkToReset" type="Node2D"]
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_46rw1")]
+position = Vector2(-274, -94)

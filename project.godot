@@ -25,8 +25,12 @@ settings/stdout/print_fps=true
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/initial_position_type=3
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
+
+[gui]
+
+theme/custom_font="uid://brksan87fruaq"
 
 [input]
 
@@ -80,6 +84,7 @@ Rollback={
 
 textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0.988235, 0.870588, 0.745098, 1)
+2d/snap/snap_2d_transforms_to_pixel=true
 environment/defaults/default_environment="res://default_env.tres"
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true

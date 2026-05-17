@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://h12u5bxrjewr"]
+
+[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="4_bk7jv"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="5_jhmwn"]
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="6_lyquo"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="Door" parent="." instance=ExtResource("4_bk7jv")]
+position = Vector2(232, 69)
+
+[node name="Button" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_jhmwn")]
+position = Vector2(-74, 96)
+target = NodePath("../Door")
+methodName = "open_close_door"
+
+[node name="PlayerEnd" parent="." instance=ExtResource("6_lyquo")]
+position = Vector2(309, 97)
