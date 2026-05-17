@@ -6,6 +6,8 @@ extends Node2D
 @onready var player_start: Node2D = $PlayerStart
 @onready var maxClonesForLevel = player_start.maxClonesForLevel
 
+var levelHasStarted = 0 # 1 after the player presses space to start
+
 var current_scene_path # path of the current level
 var to_reset_scene_path # path to the scene that has everything that needs resetting
 var to_reset_scene # scene preloaded to be instantiated later on rollback
@@ -44,7 +46,7 @@ func _ready() -> void:
 	to_reset_scene = load(to_reset_scene_path)
 	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
-	start_level() # I can make this called later when user presses space
+	#start_level() # I can make this called later when user presses space
 
 func start_level():
 	spawn_player()
@@ -62,6 +64,11 @@ func start_level():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	#start level when player presses space # move this logic to higher node later on (with label for it)
+	if not levelHasStarted:
+		if Input.is_action_just_pressed("start level"): 
+			levelHasStarted = 1
+			start_level()
 	#update timerUIs
 	if currentTimer and not currentTimer.is_stopped():
 		var currentTimerUI = timerUIs[currentCloneIndex]
