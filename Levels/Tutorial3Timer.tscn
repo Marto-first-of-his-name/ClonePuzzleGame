@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=4 uid="uid://b4w8o3gwvx85d"]
+[gd_scene load_steps=15 format=4 uid="uid://b4w8o3gwvx85d"]
 
-[ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_aru4s"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_80yb4"]
 [ext_resource type="Texture2D" uid="uid://iyo5ah2svs64" path="res://Sprites/Cables - Spritesheet 8x8.png" id="3_p48kn"]
 [ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_r2xs5"]
-[ext_resource type="PackedScene" uid="uid://h12u5bxrjewr" path="res://Levels/Tutorial2RollbackToReset.tscn" id="5_3pg2o"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="5_p48kn"]
+[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/Platform.tscn" id="6_80yb4"]
+[ext_resource type="Script" uid="uid://b7j6qxxcnmrrq" path="res://Scripts/animation_player_start_once_on_trigger.gd" id="6_r2xs5"]
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="7_3pg2o"]
+[ext_resource type="PackedScene" uid="uid://tenhrooodnd5" path="res://Objects/Player.tscn" id="8_r2xs5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ftydq"]
 texture = ExtResource("2_80yb4")
@@ -6327,9 +6330,15 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_0o3b3")
 
-[node name="Tutorial2Rollback" type="Node2D"]
-script = ExtResource("1_aru4s")
-timers = Array[float]([4.0, 5.0])
+[sub_resource type="Animation" id="Animation_1k1fu"]
+resource_name = "up"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22awp"]
+_data = {
+&"up": SubResource("Animation_1k1fu")
+}
+
+[node name="Tutorial3Timer" type="Node2D"]
 
 [node name="Terrain" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -6369,4 +6378,23 @@ theme_override_font_sizes/font_size = 8
 text = "Try standing on the button then press R to terminate your life and spawn a new clone"
 autowrap_mode = 2
 
-[node name="NodesToReset" parent="." instance=ExtResource("5_3pg2o")]
+[node name="Button" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_p48kn")]
+position = Vector2(-188, 86)
+target = NodePath("../Platform/AnimationPlayer")
+methodName = "start_animation"
+
+[node name="PlayerEnd" parent="." instance=ExtResource("7_3pg2o")]
+position = Vector2(-92, 14)
+
+[node name="Platform" parent="." instance=ExtResource("6_80yb4")]
+position = Vector2(-35, -82)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+root_node = NodePath("../../Button")
+libraries = {
+&"": SubResource("AnimationLibrary_22awp")
+}
+script = ExtResource("6_r2xs5")
+
+[node name="Player" parent="." instance=ExtResource("8_r2xs5")]
+position = Vector2(-235, 19)
