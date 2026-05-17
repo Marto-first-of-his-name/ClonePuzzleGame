@@ -6365,7 +6365,7 @@ offset_right = -38.0
 offset_bottom = -95.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "Btw, you can dash with Shift"
+text = "Btw, you can dash with Shift."
 autowrap_mode = 2
 
 [node name="NodesToReset" parent="." instance=ExtResource("4_4h11o")]
