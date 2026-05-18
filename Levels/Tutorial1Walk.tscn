@@ -6366,6 +6366,16 @@ theme_override_font_sizes/font_size = 8
 text = "tap space to jump"
 autowrap_mode = 2
 
+[node name="Label7" type="Label" parent="."]
+offset_left = -116.0
+offset_top = -152.0
+offset_right = -48.0
+offset_bottom = -103.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "A-D to move"
+autowrap_mode = 2
+
 [node name="Label4" type="Label" parent="."]
 offset_left = 67.0
 offset_top = -83.0
@@ -6387,10 +6397,10 @@ text = "space mid air to double-jump"
 autowrap_mode = 2
 
 [node name="Label5" type="Label" parent="."]
-offset_left = -17.0
-offset_top = 86.0
-offset_right = 184.0
-offset_bottom = 135.0
+offset_left = -21.0
+offset_top = 97.0
+offset_right = 180.0
+offset_bottom = 146.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "?pumj llaw ot woh wonk uoy oD"

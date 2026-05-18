@@ -4,7 +4,7 @@ var currentLevel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var tutorial3_scene = preload("res://Levels/Tutorial3.tscn")
+	var tutorial3_scene = preload("res://Levels/Tutorial3Timer.tscn")
 	currentLevel = tutorial3_scene.instantiate()
 	add_child(currentLevel)
 	pass # Replace with function body.

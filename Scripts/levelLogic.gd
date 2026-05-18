@@ -41,9 +41,11 @@ func instantiate_vars_and_connect_signals_on_to_reset_scene_ready():
 func _ready() -> void:
 	firstTimerUIPosition = Vector2(-946.0, -524.0) / camera_2d.zoom
 	instantiate_vars_and_connect_signals_on_to_reset_scene_ready()
-	current_scene_path = get_tree().current_scene.scene_file_path
+	current_scene_path = scene_file_path
+	print(current_scene_path)
 	to_reset_scene_path = str(current_scene_path.left(-5),"ToReset.tscn")
 	to_reset_scene = load(to_reset_scene_path)
+	print(str("loaded", to_reset_scene))
 	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
 	
