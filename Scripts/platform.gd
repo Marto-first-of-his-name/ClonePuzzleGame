@@ -15,7 +15,7 @@ var offset_right_tile = Vector2(12.0, 0.0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	create_middle_tiles()
+	#create_middle_tiles()
 	adjust_collision()
 
 

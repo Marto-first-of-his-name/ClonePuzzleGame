@@ -40,10 +40,8 @@ autoplay = "move_up_down"
 [node name="PlayerEnd" parent="." instance=ExtResource("4_ee0w8")]
 position = Vector2(262, -80)
 
-[node name="ButtonForDoor" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_s0ndr")]
+[node name="ButtonForDoor" parent="." instance=ExtResource("5_s0ndr")]
 position = Vector2(-190, 64)
-target = NodePath("../Door")
-methodName = "open_close_door"
 
 [node name="Door" parent="." instance=ExtResource("6_v8tyg")]
 position = Vector2(-25, 38)

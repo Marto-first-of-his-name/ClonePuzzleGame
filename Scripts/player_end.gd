@@ -1,4 +1,4 @@
-extends Area2D
+extends AnimatableBody2D
 
 signal endDoorReached
 # Called when the node enters the scene tree for the first time.
@@ -12,6 +12,5 @@ func _process(delta: float) -> void:
 
 
 
-
-func _on_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	endDoorReached.emit(body)

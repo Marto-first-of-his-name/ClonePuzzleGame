@@ -8,7 +8,9 @@ extends AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	if animation_to_play == "RESET" and get_animation_list().size()>1:
+		animation_to_play = get_animation_list()[1]
+	return
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,17 +20,13 @@ func _process(delta: float) -> void:
 func animate(forward): #1 if we play the animation forward, 0 if backwards
 	if forward:
 		if is_playing():
-			print("1")
 			play_anim_backward_from_current_frame()
 		else:
-			print("2")
 			play_anim_normally()
 	else:
 		if is_playing():
-			print("3")
 			play_anim_backward_from_current_frame()
 		else:
-			print("4")
 			play_backwards(animation_to_play)
 
 func play_anim_backward_from_current_frame():
