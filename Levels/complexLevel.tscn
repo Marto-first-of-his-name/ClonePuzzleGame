@@ -6329,7 +6329,6 @@ sources/0 = SubResource("TileSetAtlasSource_2m42p")
 
 [node name="ComplexLevel" type="Node2D"]
 script = ExtResource("1_dfpk5")
-timers = Array[float]([5.0, 4.0, 3.0, 3.0])
 
 [node name="Terrain" type="TileMapLayer" parent="."]
 use_parent_material = true
