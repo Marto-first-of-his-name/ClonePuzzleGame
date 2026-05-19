@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="4_3kym5"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="5_jqduy"]
 [ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/Platform.tscn" id="6_h2k6o"]
-[ext_resource type="Script" uid="uid://b7j6qxxcnmrrq" path="res://Scripts/anim_player_single_anim_trigger.gd" id="7_l8m5x"]
+[ext_resource type="Script" uid="uid://b7j6qxxcnmrrq" path="res://Scripts/Objects/anim_player_single_anim_trigger.gd" id="7_l8m5x"]
 
 [sub_resource type="Animation" id="Animation_1k1fu"]
 resource_name = "up"

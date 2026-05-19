@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://kpb6uen3l38s"]
 
-[ext_resource type="Script" uid="uid://cdu2bcdwk3mqi" path="res://Scripts/player_start.gd" id="1_5wo60"]
+[ext_resource type="Script" uid="uid://cdu2bcdwk3mqi" path="res://Scripts/Objects/player_start.gd" id="1_5wo60"]
 [ext_resource type="Texture2D" uid="uid://c1fr4unu1gag4" path="res://Sprites/openclipart-vectors-super-mario-brothers-147465.svg" id="2_ybmde"]
 
 [node name="PlayerStart" type="Node2D"]

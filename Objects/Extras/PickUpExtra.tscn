@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjxl8hgjhstq8"]
+
+[ext_resource type="Script" uid="uid://cl4elxt6e2qja" path="res://Scripts/Extras/pick_up_extra.gd" id="1_p5uw1"]
+
+[node name="PickUpExtra" type="Node"]
+script = ExtResource("1_p5uw1")

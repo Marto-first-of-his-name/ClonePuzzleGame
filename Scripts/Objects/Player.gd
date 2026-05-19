@@ -95,6 +95,13 @@ var wallJumpHeight = 128 #how high you want the peak of your wall jump to be in 
 var wallJumpVelocity #how much to apply to velocity.y to reach wall jump height
 var wallJumpThrust = 50 # horizontal thrust in the look direction when wall jumping
 
+# interacts
+var isInteractPressed := 0 # 3 bit value: If 0, then nothing is pressed, if 1 then InteractOne, if 2=1-0 then InteractTwo, if 3=1-1 then InteractOne and InteractTwo, if 4=1-0-0 then InteractThree, etc all the way to 7=1-1-1 then all Interacts
+	# to get the values of InteractOne, Two and Three you use:
+	#one = isInteractPressed & 1
+	#two = isInteractPressed >> 1 & 1
+	#three = isInteractPressed >> 2 & 1
+
 
 #functions
 func _ready():
@@ -141,6 +148,11 @@ func get_input():
 	
 	rollbackInput = Input.is_action_just_pressed("Rollback")
 	
+	var one = Input.is_action_just_pressed("InteractOne")
+	var two = Input.is_action_just_pressed("InteractTwo")
+	var three = Input.is_action_just_pressed("InteractThree")
+	isInteractPressed = (three << 2) + (two << 1) + one
+	
 	isJumpPressed = Input.is_action_just_pressed("jump") 
 	isJumpReleased = Input.is_action_just_released("jump")
 	
@@ -175,6 +187,8 @@ func record_input():
 	frame.jumpInput = jumpInput
 
 	frame.isDashPressed = isDashPressed
+	
+	frame.isInteractPressed = isInteractPressed
 
 	recordedInputs.append(frame)
 
@@ -186,7 +200,9 @@ func clone_set_input(recordedInputs):
 		isJumpReleased = 0
 		jumpInput = 0
 		isDashPressed = 0
+		isInteractPressed = 0
 		return
+	
 	var frame = recordedInputs[playbackIndex]
 	
 	movementInput = frame.movementInput
@@ -201,9 +217,19 @@ func clone_set_input(recordedInputs):
 	jumpInput = frame.jumpInput
 
 	isDashPressed = frame.isDashPressed
+	
+	isInteractPressed = frame.isInteractPressed
 
 	playbackIndex += 1
 
+func interact():
+	if (LeftRaycast.is_colliding() and lastDirection == -1) or (RightRaycast.is_colliding() and lastDirection == 1):
+		var leftCollider = LeftRaycast.get_collider()
+		var rightCollider = RightRaycast.get_collider()
+		if leftCollider and leftCollider is Interactable:
+			leftCollider.interact(isInteractPressed)
+		if rightCollider and rightCollider is Interactable:
+			rightCollider.interact(isInteractPressed)
 
 func apply_gravity(delta):
 	#apply gravity in every state except dash

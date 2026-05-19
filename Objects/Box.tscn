@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceiif4kh14hpt"]
+
+[ext_resource type="PackedScene" uid="uid://cjxl8hgjhstq8" path="res://Objects/Extras/PickUpExtra.tscn" id="1_2s26f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eic30"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2s26f"]
+radius = 22.022715
+
+[node name="Box" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eic30")
+
+[node name="PickUpExtra" parent="." instance=ExtResource("1_2s26f")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpExtra"]
+shape = SubResource("CircleShape2D_2s26f")

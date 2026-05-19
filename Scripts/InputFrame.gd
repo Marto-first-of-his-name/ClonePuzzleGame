@@ -14,3 +14,5 @@ var elapsedCoyoteTime := 0
 var jumpInput := 0
 
 var isDashPressed := false
+
+var isInteractPressed := 0

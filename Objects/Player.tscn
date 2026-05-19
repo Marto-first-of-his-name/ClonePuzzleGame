@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://tenhrooodnd5"]
 
 [ext_resource type="Texture2D" uid="uid://dhu8r8eg4jfmh" path="res://Sprites/PlayerSpriteSheet.png" id="1"]
-[ext_resource type="Script" uid="uid://ctnm2qdaq0y2g" path="res://Scripts/Player.gd" id="2"]
+[ext_resource type="Script" uid="uid://ctnm2qdaq0y2g" path="res://Scripts/Objects/Player.gd" id="2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n6db0"]
 radius = 9.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7887pncy14vd"]
 
-[ext_resource type="Script" uid="uid://dc4cwkkhcjo2n" path="res://Scripts/timer_for_each_life.gd" id="1_522da"]
+[ext_resource type="Script" uid="uid://dc4cwkkhcjo2n" path="res://Scripts/Objects/timer_for_each_life.gd" id="1_522da"]
 
 [node name="TimerForEachLife" type="Node2D"]
 script = ExtResource("1_522da")
