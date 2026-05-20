@@ -13,8 +13,12 @@ var previousState = null #last state that was being calles
 
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-@onready var RightRaycast = $RightRaycast #path to the right raycast
-@onready var LeftRaycast = $LeftRaycast  #path to the left raycast
+@onready var RightCollisionRaycast = $RightCollisionRaycast #path to the right raycast
+@onready var LeftCollisionRaycast = $LeftCollisionRaycast  #path to the left raycast
+
+@onready var RightInteractRaycast: RayCast2D = $RightInteractRaycast
+@onready var LeftInteractRaycast: RayCast2D = $LeftInteractRaycast
+
 
 #Squash & Stretch
 var recoverySpeed = 0.03 #how fast you recover from squashes, and stretches
@@ -101,6 +105,8 @@ var isInteractPressed := 0 # 3 bit value: If 0, then nothing is pressed, if 1 th
 	#one = isInteractPressed & 1
 	#two = isInteractPressed >> 1 & 1
 	#three = isInteractPressed >> 2 & 1
+	
+var isHoldingSomething := 0 # 1 when the player carries or pulls something or otherwise has his hands busy
 
 
 #functions
@@ -134,6 +140,7 @@ func _physics_process(delta):
 	move_and_slide()
 	#velocity = velocity #aply velocity to movement
 	
+	interact()
 	
 	recover_sprite_scale()
 	
@@ -148,9 +155,9 @@ func get_input():
 	
 	rollbackInput = Input.is_action_just_pressed("Rollback")
 	
-	var one = Input.is_action_just_pressed("InteractOne")
-	var two = Input.is_action_just_pressed("InteractTwo")
-	var three = Input.is_action_just_pressed("InteractThree")
+	var one = int(Input.is_action_just_pressed("InteractOne"))
+	var two = int(Input.is_action_just_pressed("InteractTwo"))
+	var three = int(Input.is_action_just_pressed("InteractThree"))
 	isInteractPressed = (three << 2) + (two << 1) + one
 	
 	isJumpPressed = Input.is_action_just_pressed("jump") 
@@ -223,13 +230,22 @@ func clone_set_input(recordedInputs):
 	playbackIndex += 1
 
 func interact():
-	if (LeftRaycast.is_colliding() and lastDirection == -1) or (RightRaycast.is_colliding() and lastDirection == 1):
-		var leftCollider = LeftRaycast.get_collider()
-		var rightCollider = RightRaycast.get_collider()
-		if leftCollider and leftCollider is Interactable:
-			leftCollider.interact(isInteractPressed)
-		if rightCollider and rightCollider is Interactable:
-			rightCollider.interact(isInteractPressed)
+	if not isInteractPressed:
+		return
+	if (LeftInteractRaycast.is_colliding() and lastDirection == -1) or (RightInteractRaycast.is_colliding() and lastDirection == 1):
+		var leftCollider = LeftInteractRaycast.get_collider()
+		var rightCollider = RightInteractRaycast.get_collider()
+		var isLeftInteractable = leftCollider is Interactable
+		var isRightInteractable = rightCollider is Interactable
+		
+		if leftCollider and isLeftInteractable and lastDirection == -1:
+			leftCollider.call_interaction(isInteractPressed, self)
+		
+		# we don't want to call interact on the same object twice just because we are in the middle of it
+		# We'll only ever be facing one way or the other so lastDirection handles that
+		
+		if rightCollider and isRightInteractable and lastDirection == 1:
+			rightCollider.call_interaction(isInteractPressed, self)
 
 func apply_gravity(delta):
 	#apply gravity in every state except dash
@@ -366,7 +382,7 @@ func fall_logic(delta):
 		
 		squash_stretch(landingSquash, landingStretch) #apply squash and stretch
 		
-	if LeftRaycast.is_colliding() && movementInput == -1 || RightRaycast.is_colliding() && movementInput == 1:
+	if LeftCollisionRaycast.is_colliding() && movementInput == -1 || RightCollisionRaycast.is_colliding() && movementInput == 1:
 		#if your raycast is coliding and you are trying to move in that direction
 		set_state("wall_slide")
 	
@@ -473,12 +489,12 @@ func wall_slide_enter_logic():
 func wall_slide_logic(delta):
 	velocity.y = wallSlideSpeed #override apply_gravity and apply a constant slide speed
 	
-	if LeftRaycast.is_colliding() && movementInput != -1 || RightRaycast.is_colliding() && movementInput != 1:
+	if LeftCollisionRaycast.is_colliding() && movementInput != -1 || RightCollisionRaycast.is_colliding() && movementInput != 1:
 		#if your raycast is coliding and you are trying to move in that direction
 		jumpBufferStartTime = Time.get_ticks_msec() #start jump buffer timer
 		set_state("fall") #set state to fall
 	#this could be done in one long if statement but I split it up to make it easiar to read
-	if !LeftRaycast.is_colliding() && movementInput == -1 || !RightRaycast.is_colliding() && movementInput == 1:
+	if !LeftCollisionRaycast.is_colliding() && movementInput == -1 || !RightCollisionRaycast.is_colliding() && movementInput == 1:
 		#if you are holding in a direction but no longer coliding with a wall in that direction
 		set_state("fall")
 	

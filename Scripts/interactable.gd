@@ -12,11 +12,9 @@ var extras = []
 func _ready() -> void:
 	#store all children nodes (except the CollisionShape2d) in array
 	var children = get_children()
-	var extrasIndex = 0
 	for child in children:
 		if child.name.right(5)=="Extra":
-			extras[extrasIndex] = child
-			extrasIndex += 1
+			extras.append(child)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,14 +22,14 @@ func _process(delta: float) -> void:
 	pass
 
 
-func call_interaction(interactIndexBinary): #have player call this when inputs are pressed
+func call_interaction(interactIndexBinary, callingPlayer): #have player call this when inputs are pressed
 	var one = interactIndexBinary & 1
 	var two = interactIndexBinary >> 1 & 1
 	var three = interactIndexBinary >> 2 & 1
 	for extra in extras:
-		if one and extra.interactOneAvailable:
-			extra.interactOne()
-		if two and extra.interactTwoAvailable:
-			extra.interactTwo()
-		if three and extra.interactThreeAvailable:
-			extra.interactThree()
+		if one:
+			extra.interactOne(callingPlayer)
+		if two:
+			extra.interactTwo(callingPlayer)
+		if three:
+			extra.interactThree(callingPlayer)

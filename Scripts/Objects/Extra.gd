@@ -1,10 +1,9 @@
 class_name Extra extends Node
 
 #Node name must end in "Extra"
-var interactOneAvailable := 0
-var interactTwoAvailable := 0
-var interactThreeAvailable := 0
 
+@onready var interactableNode = get_parent() #the interactable node that is under objectNode
+@onready var objectNode = interactableNode.get_parent() #the actual object that we want to interact with
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,11 +15,11 @@ func _process(delta: float) -> void:
 	pass
 
 
-func interactOne():
-	print("interact one not defined")
+func interactOne(callingPlayer):
+	pass
 
-func interactTwo():
-	print("interact two not defined")
+func interactTwo(callingPlayer):
+	pass
 
-func interactThree():
-	print("interact three not defined")
+func interactThree(callingPlayer):
+	pass

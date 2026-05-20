@@ -1,9 +1,10 @@
 extends Extra
 
+
+var isPickedUp = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	interactOneAvailable = 1
-	interactTwoAvailable = 2
 	pass # Replace with function body.
 
 
@@ -11,11 +12,21 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func interactOne():
-	print("interact one")
+func interactOne(callingPlayer: Player):
+	print("trying to pick up")
+	if callingPlayer.isHoldingSomething and not isPickedUp:
+		return
+	
+	if isPickedUp:
+		drop(callingPlayer)
+	else:
+		pickUp(callingPlayer)
+	
 
-func interactTwo():
-	print("interact two")
+func pickUp(callingPlayer):
+	isPickedUp = 1
+	callingPlayer.isHoldingSomething = 1
 
-func interactThree():
-	print("interact three")
+func drop(callingPlayer):
+	isPickedUp = 0
+	callingPlayer.isHoldingSomething = 1
