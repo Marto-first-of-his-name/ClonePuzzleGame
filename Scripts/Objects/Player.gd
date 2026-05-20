@@ -232,19 +232,20 @@ func clone_set_input(recordedInputs):
 func interact():
 	if not isInteractPressed:
 		return
-	if (LeftInteractRaycast.is_colliding() and lastDirection == -1) or (RightInteractRaycast.is_colliding() and lastDirection == 1):
+	if (LeftInteractRaycast.is_colliding()) or (RightInteractRaycast.is_colliding()):
 		var leftCollider = LeftInteractRaycast.get_collider()
 		var rightCollider = RightInteractRaycast.get_collider()
 		var isLeftInteractable = leftCollider is Interactable
 		var isRightInteractable = rightCollider is Interactable
 		
-		if leftCollider and isLeftInteractable and lastDirection == -1:
+		if leftCollider and isLeftInteractable:
 			leftCollider.call_interaction(isInteractPressed, self)
 		
 		# we don't want to call interact on the same object twice just because we are in the middle of it
-		# We'll only ever be facing one way or the other so lastDirection handles that
+		if leftCollider == rightCollider:
+			return
 		
-		if rightCollider and isRightInteractable and lastDirection == 1:
+		if rightCollider and isRightInteractable:
 			rightCollider.call_interaction(isInteractPressed, self)
 
 func apply_gravity(delta):

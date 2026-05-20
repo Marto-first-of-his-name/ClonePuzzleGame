@@ -2,9 +2,11 @@ extends Extra
 
 
 var isPickedUp = 0
+var objectNodeParent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	objectNodeParent = objectNode.get_parent()
 	pass # Replace with function body.
 
 
@@ -21,12 +23,18 @@ func interactOne(callingPlayer: Player):
 		drop(callingPlayer)
 	else:
 		pickUp(callingPlayer)
-	
 
 func pickUp(callingPlayer):
+	if objectNode is RigidBody2D:
+		objectNode.freeze = true
+	objectNode.reparent(callingPlayer)
+	objectNode.global_position = callingPlayer.global_position + Vector2(20, 0)
 	isPickedUp = 1
 	callingPlayer.isHoldingSomething = 1
 
 func drop(callingPlayer):
+	if objectNode is RigidBody2D:
+		objectNode.freeze = false
+	objectNode.reparent(objectNodeParent)
 	isPickedUp = 0
-	callingPlayer.isHoldingSomething = 1
+	callingPlayer.isHoldingSomething = 0
