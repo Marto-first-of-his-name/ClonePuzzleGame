@@ -20,17 +20,29 @@ func interactOne(callingPlayer: Player):
 		return
 	
 	if isPickedUp:
+		#we drop no matter if we're looking or not
 		drop(callingPlayer)
 	else:
-		pickUp(callingPlayer)
+		var lastDir = callingPlayer.lastDirection
+		var isOnRightOfPlayer = callingPlayer.RightInteractRaycast.get_collider() == interactableNode
+		# we only pick up if looking at the object
+		if (isOnRightOfPlayer and lastDir == 1) or (not isOnRightOfPlayer and lastDir == -1):
+			pickUp(callingPlayer)
 
 func pickUp(callingPlayer):
+	#rewrite this so the object just tries to follow the ideal position, that way it still collides with stuff
+	#(animate or move_and_collide)
 	if objectNode is RigidBody2D:
 		objectNode.freeze = true
 	objectNode.reparent(callingPlayer)
-	objectNode.global_position = callingPlayer.global_position + Vector2(20, 0)
+	objectNode.global_position = callingPlayer.global_position + getOffset(callingPlayer)
 	isPickedUp = 1
 	callingPlayer.isHoldingSomething = 1
+
+func getOffset(callingPlayer):
+	var isOnRightSideOfPlayer = 1 if callingPlayer.RightInteractRaycast.get_collider() == interactableNode else -1
+	var offset = isOnRightSideOfPlayer * Vector2(25, 0)
+	return offset
 
 func drop(callingPlayer):
 	if objectNode is RigidBody2D:
