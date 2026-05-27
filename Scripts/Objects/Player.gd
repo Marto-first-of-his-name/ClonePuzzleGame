@@ -6,6 +6,7 @@ var cloneIndex = 0 # 0 is player, 1 is the first spawned clone, 2 the second, et
 var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all states
 var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
+signal player_or_clone_dead(playerWhoDied)
 
 #Nodes & paths
 @onready var PlayerSprite = $Sprite2D #path to the player's sprite
@@ -34,8 +35,8 @@ var recordedInputs : Array[InputFrame] = []
 var isRecordingInput = 1
 var isPlayingBack = 0
 var playbackIndex = 0
-var rollbackInput = 0 #will be 1 once rollback is pressed
-signal rollbackSignal #shall be emitted when rollbackInput is 1
+#var rollbackInput = 0 #will be 1 once rollback is pressed
+#signal rollbackSignal #shall be emitted when rollbackInput is 1
 
 #Input Vars
 var inputEnabled = 1 # set to 0 to prevent input from player
@@ -125,15 +126,13 @@ func _physics_process(delta):
 			get_input()
 			if isRecordingInput: record_input()
 	
-	if rollbackInput:
-		rollbackSignal.emit(0)
-		rollbackInput = 0
+	#if rollbackInput:
+	#	rollbackSignal.emit(0)
+	#	rollbackInput = 0
 	
 	apply_gravity(delta) 
 	
 	call(currentState + "_logic", delta) #call the current states main method
-	
-	
 	
 	#set_velocity(velocity)
 	#set_up_direction(Vector2.UP)
@@ -153,7 +152,7 @@ func get_input():
 	if movementInput != 0:
 		lastDirection = movementInput #set last direction if movement input isnt 0
 	
-	rollbackInput = Input.is_action_just_pressed("Rollback")
+	#rollbackInput = Input.is_action_just_pressed("Rollback")
 	
 	var one = int(Input.is_action_just_pressed("InteractOne"))
 	var two = int(Input.is_action_just_pressed("InteractTwo"))
@@ -226,12 +225,13 @@ func clone_set_input(recordedInputs):
 	isDashPressed = frame.isDashPressed
 	
 	isInteractPressed = frame.isInteractPressed
-
+	
 	playbackIndex += 1
 
 func interact():
 	if not isInteractPressed:
 		return
+	die()
 	if (LeftInteractRaycast.is_colliding()) or (RightInteractRaycast.is_colliding()):
 		var leftCollider = LeftInteractRaycast.get_collider()
 		var rightCollider = RightInteractRaycast.get_collider()
@@ -248,11 +248,13 @@ func interact():
 		if rightCollider and isRightInteractable:
 			rightCollider.call_interaction(isInteractPressed, self)
 
+func die():
+	player_or_clone_dead.emit(self)
+
 func apply_gravity(delta):
 	#apply gravity in every state except dash
 	if currentState != "dash":
 		velocity.y += gravity * delta
-
 
 func recover_sprite_scale():
 	#make sprite scale approach 0

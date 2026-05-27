@@ -47,7 +47,7 @@ func pickUp(callingPlayer):
 
 func getOffset(callingPlayer):
 	var isOnRightSideOfPlayer = 1 if callingPlayer.RightInteractRaycast.get_collider() == interactableNode else -1
-	var offset = isOnRightSideOfPlayer * Vector2(offsetXDuringPickup + 3, 0)
+	var offset = isOnRightSideOfPlayer * Vector2(offsetXDuringPickup + 3, 0) + Vector2(0, 10)
 	return offset
 
 func drop(callingPlayer):

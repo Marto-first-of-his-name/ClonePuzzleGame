@@ -25,6 +25,9 @@ var currentTimer #store the "Timer" Node that is currently running
 var timerUIs = [] #array referencing all the timers shown in game. 0 is the first run, n-1 the last one
 var timer_ui_for_each_life_scene #stores a preload of the timer ui scene
 
+var dead_player_scene = preload("res://Objects/dead_player.tscn") 
+var dead_bodies = []
+
 var firstTimerUIPosition #where the first timer is
 var timerUIPositionOffset = Vector2(50.0, 0.0) #where the second timer is in relation to the first
 
@@ -64,7 +67,6 @@ func start_level():
 	spawn_player()
 	if not timers.is_empty():
 		start_timer_and_connect_signal(timers[0])
-	player.rollbackSignal.connect(rollback)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -77,10 +79,14 @@ func _process(delta: float) -> void:
 	if currentTimer and not currentTimer.is_stopped():
 		var currentTimerUI = timerUIs[currentCloneIndex]
 		currentTimerUI.update_text(str(currentTimer.get_time_left()))
+	
+	if Input.is_action_just_pressed("Rollback"):
+		rollback(0)
 
 # Spawns player at start
 func spawn_player():
 	player = player_scene.instantiate()
+	player.player_or_clone_dead.connect(on_player_or_clone_death)
 	player.cloneIndex = currentCloneIndex
 	player.position = player_start.position
 	
@@ -92,6 +98,7 @@ func spawn_player():
 #spawned clone instantly plays back the recordings
 func spawn_clone():
 	var clone = player_scene.instantiate()
+	clone.player_or_clone_dead.connect(on_player_or_clone_death)
 	clone.cloneIndex = currentCloneIndex
 	clone.position = player_start.position
 	clone.recordedInputs = player.recordedInputs.duplicate(true)
@@ -123,11 +130,12 @@ func rollback(wasAutomatic):
 	
 	# reset and hide player and clones we already had
 	player.position = player_start.position
-	enable_disable_player_or_clone(player)
+	disable_player_or_clone(player)
 	for clone in clones:
 		clone.position = player_start.position
 		clone.playbackIndex = 0
-		enable_disable_player_or_clone(clone)
+		disable_player_or_clone(clone)
+	remove_dead_bodies()
 	
 	# reset interactables and animatables in level
 	var new_to_reset_scene = to_reset_scene.instantiate()
@@ -139,7 +147,7 @@ func rollback(wasAutomatic):
 	#play the clones we already had
 	for clone in clones:
 		await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
-		enable_disable_player_or_clone(clone)
+		enable_player_or_clone(clone)
 		set_clone_opacity(clone)
 		player_start.decrement_clones_left()
 	
@@ -151,7 +159,7 @@ func rollback(wasAutomatic):
 	
 	#enable player
 	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
-	enable_disable_player_or_clone(player)
+	enable_player_or_clone(player)
 	player_start.decrement_clones_left()
 	
 	#start the next timer
@@ -160,10 +168,15 @@ func rollback(wasAutomatic):
 			start_timer_and_connect_signal(timers[currentCloneIndex])
 
 # hides/shows player/clone and enables/disables physics
-func enable_disable_player_or_clone(playerOrClone):
-	playerOrClone.visible = not playerOrClone.visible
-	playerOrClone.collision_shape.disabled = not playerOrClone.collision_shape.disabled
-	playerOrClone.set_physics_process(not playerOrClone.is_physics_processing())
+func enable_player_or_clone(playerOrClone):
+	playerOrClone.visible = true
+	playerOrClone.collision_shape.disabled = false
+	playerOrClone.set_physics_process(true)
+
+func disable_player_or_clone(playerOrClone):
+	playerOrClone.visible = false
+	playerOrClone.collision_shape.disabled = true
+	playerOrClone.set_physics_process(false)
 
 func start_timer_and_connect_signal(seconds):
 	currentTimer = Timer.new()
@@ -172,6 +185,20 @@ func start_timer_and_connect_signal(seconds):
 	add_child(currentTimer)
 	currentTimer.timeout.connect(_on_timer_timeout)
 	currentTimer.start()
+
+func on_player_or_clone_death(playerWhoDied):
+	print(playerWhoDied)
+	disable_player_or_clone(playerWhoDied)
+	var dead_player = dead_player_scene.instantiate()
+	add_child(dead_player)
+	dead_player.position = playerWhoDied.position
+	dead_player.get_node("Sprite2D").modulate = playerWhoDied.PlayerSprite.modulate
+	dead_bodies.append(dead_player)
+
+func remove_dead_bodies():
+	for body in dead_bodies:
+		body.queue_free()
+	dead_bodies.clear()
 
 # do a rollback each time a "life" timer times out
 func _on_timer_timeout():

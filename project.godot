@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ClonePuzzleGame"
-run/main_scene="uid://buu6usnyfh5le"
+run/main_scene="uid://c4odg0gn1221g"
 config/features=PackedStringArray("4.5")
 run/max_fps=60
 config/icon="res://icon.png"
