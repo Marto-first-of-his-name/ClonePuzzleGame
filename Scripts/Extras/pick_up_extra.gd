@@ -1,12 +1,18 @@
 extends Extra
 
-
+@export var offsetXDuringPickup := 25.0
 var isPickedUp = 0
 var objectNodeParent
+var objectIsRigidBody = 0
+var objectCollisionShape
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	objectNodeParent = objectNode.get_parent()
+	objectIsRigidBody = objectNode is RigidBody2D
+	if objectIsRigidBody:
+		objectCollisionShape = objectNode.get_child(0)
+		
 	pass # Replace with function body.
 
 
@@ -32,21 +38,27 @@ func interactOne(callingPlayer: Player):
 func pickUp(callingPlayer):
 	#rewrite this so the object just tries to follow the ideal position, that way it still collides with stuff
 	#(animate or move_and_collide)
-	if objectNode is RigidBody2D:
-		objectNode.freeze = true
 	objectNode.reparent(callingPlayer)
 	objectNode.global_position = callingPlayer.global_position + getOffset(callingPlayer)
 	isPickedUp = 1
 	callingPlayer.isHoldingSomething = 1
+	if objectIsRigidBody:
+		objectNode.freeze = true
+		objectCollisionShape.reparent(callingPlayer)
 
 func getOffset(callingPlayer):
 	var isOnRightSideOfPlayer = 1 if callingPlayer.RightInteractRaycast.get_collider() == interactableNode else -1
-	var offset = isOnRightSideOfPlayer * Vector2(25, 0)
+	var offset = isOnRightSideOfPlayer * Vector2(offsetXDuringPickup + 3, 0)
 	return offset
 
 func drop(callingPlayer):
-	if objectNode is RigidBody2D:
+	if objectIsRigidBody:
 		objectNode.freeze = false
+		print(objectCollisionShape.name)
+		objectCollisionShape.reparent(objectNode)
+		objectNode.move_child(objectCollisionShape,0)
+		print(objectNode.get_child(0).name)
+		
 	objectNode.reparent(objectNodeParent)
 	isPickedUp = 0
 	callingPlayer.isHoldingSomething = 0

@@ -11,7 +11,7 @@ var previousState = null #last state that was being calles
 @onready var PlayerSprite = $Sprite2D #path to the player's sprite
 @onready var Anim = $AnimationPlayer #path to animation player
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $PlayerCollisionShape2D
 
 @onready var RightCollisionRaycast = $RightCollisionRaycast #path to the right raycast
 @onready var LeftCollisionRaycast = $LeftCollisionRaycast  #path to the left raycast

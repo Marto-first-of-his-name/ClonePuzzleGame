@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceiif4kh14hpt"]
+[gd_scene load_steps=6 format=3 uid="uid://ceiif4kh14hpt"]
 
 [ext_resource type="PackedScene" uid="uid://deyebiwmrfyjf" path="res://Objects/Extras/interactable.tscn" id="1_2s26f"]
 [ext_resource type="PackedScene" uid="uid://cjxl8hgjhstq8" path="res://Objects/Extras/PickUpExtra.tscn" id="2_ewiju"]
+[ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="3_lwc6d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eic30"]
+size = Vector2(14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewiju"]
-size = Vector2(36, 32)
+size = Vector2(30, 20)
 
 [node name="Box" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BoxCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_eic30")
 
 [node name="Interactable" parent="." instance=ExtResource("1_2s26f")]
@@ -21,3 +23,9 @@ shape = SubResource("RectangleShape2D_eic30")
 shape = SubResource("RectangleShape2D_ewiju")
 
 [node name="PickUpExtra" parent="Interactable" instance=ExtResource("2_ewiju")]
+offsetXDuringPickup = 17.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_lwc6d")
+region_enabled = true
+region_rect = Rect2(193, 145, 14, 14)

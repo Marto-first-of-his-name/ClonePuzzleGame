@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://buu6usnyfh5le"]
+[gd_scene load_steps=11 format=4 uid="uid://c77nsqkchenhr"]
 
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_dfpk5"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_qw073"]
@@ -6347,6 +6347,7 @@ position = Vector2(-195, -124)
 maxClonesForLevel = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
 [node name="NodesToReset" parent="." instance=ExtResource("3_5fce8")]
 

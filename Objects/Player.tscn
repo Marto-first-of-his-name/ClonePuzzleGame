@@ -124,26 +124,27 @@ collision_mask = 7
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(0, -3)
 texture = ExtResource("1")
 hframes = 12
 vframes = 5
 frame = 37
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 3)
+[node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_n6db0")
 
 [node name="RightCollisionRaycast" type="RayCast2D" parent="."]
+position = Vector2(1, -3)
 target_position = Vector2(9, 0)
 collision_mask = 5
 
 [node name="LeftCollisionRaycast" type="RayCast2D" parent="."]
+position = Vector2(1, -3)
 target_position = Vector2(-11, 0)
 collision_mask = 5
 
 [node name="RightInteractRaycast" type="RayCast2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(1, 0)
 target_position = Vector2(9, 0)
 collision_mask = 8
 hit_from_inside = true
@@ -151,7 +152,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="LeftInteractRaycast" type="RayCast2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(1, 0)
 target_position = Vector2(-11, 0)
 collision_mask = 8
 hit_from_inside = true
