@@ -1,4 +1,4 @@
-extends Node2D
+extends AnimatableBody2D
 
 var isLeft = 1 #switch starts on the left # left should be off state in all situations
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
