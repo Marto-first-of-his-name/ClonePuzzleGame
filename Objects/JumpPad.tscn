@@ -1,8 +1,83 @@
-[gd_scene load_steps=2 format=3 uid="uid://7p3nrjbh7347"]
+[gd_scene load_steps=12 format=3 uid="uid://7p3nrjbh7347"]
 
 [ext_resource type="Script" uid="uid://bi7w275067i8o" path="res://Scripts/Objects/jump_pad.gd" id="1_wo6yf"]
+[ext_resource type="Texture2D" uid="uid://b1bjsae8lroav" path="res://Sprites/jumppad.png" id="2_0toew"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0toew"]
+size = Vector2(20, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut3xd"]
+atlas = ExtResource("2_0toew")
+region = Rect2(22, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ox2y6"]
+atlas = ExtResource("2_0toew")
+region = Rect2(43, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptj5s"]
+atlas = ExtResource("2_0toew")
+region = Rect2(64, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy616"]
+atlas = ExtResource("2_0toew")
+region = Rect2(85, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8si2"]
+atlas = ExtResource("2_0toew")
+region = Rect2(106, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0toew"]
+atlas = ExtResource("2_0toew")
+region = Rect2(1, 17, 20, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmoj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut3xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ox2y6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptj5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy616")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8si2")
+}],
+"loop": true,
+"name": &"active",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0toew")
+}],
+"loop": true,
+"name": &"inactive",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3xd"]
+size = Vector2(18, 15)
 
 [node name="JumpPad" type="AnimatableBody2D"]
 script = ExtResource("1_wo6yf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_0toew")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_kmoj6")
+animation = &"active"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -10.5)
+shape = SubResource("RectangleShape2D_ut3xd")

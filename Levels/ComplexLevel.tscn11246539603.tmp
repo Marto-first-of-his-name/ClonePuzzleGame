@@ -6356,4 +6356,4 @@ zoom = Vector2(2, 2)
 position = Vector2(-89, 20)
 
 [node name="JumpPad" parent="." instance=ExtResource("7_dfpk5")]
-position = Vector2(-92, 64)
+position = Vector2(-60, 45)

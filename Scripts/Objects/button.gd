@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 
-var isPressed = 0
+var isPressed = 0 #should always start unpressed
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @export var targets: Array[Node]
 @export var methodNames: Array[String] #methodNames[i] needs to belong to targets[i]
