@@ -397,7 +397,7 @@ func dash_enter_logic():
 	dashDirection = lastDirection #set dash direction (we use lastDirection to make sure we dash even when idle)
 	dashStartTime = Time.get_ticks_msec() #set dash start time to total ticks since the game started
 	
-	velocity = Vector2.ZERO #set velocity to zero
+	#velocity = Vector2.ZERO #set velocity to zero
 	
 	Anim.play("Idle") #play the idle animation (I also use it for the dash)
 	PlayerSprite.modulate = Color.PURPLE #tint the player sprite purple
@@ -412,7 +412,7 @@ func dash_logic(delta):
 		set_state(previousState) #go back to the previous state
 
 func dash_exit_logic():
-	velocity = Vector2.ZERO  #reset velocity to zero
+	#velocity = Vector2.ZERO  #reset velocity to zero
 	if !is_on_floor():
 		canDash = false #limit the amount of air dashes someone can do
 	

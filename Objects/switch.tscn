@@ -39,6 +39,7 @@ animations = [{
 size = Vector2(19, 18.375)
 
 [node name="switch" type="AnimatableBody2D"]
+collision_mask = 7
 script = ExtResource("1_g0mj6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

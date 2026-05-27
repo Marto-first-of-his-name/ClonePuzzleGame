@@ -53,11 +53,8 @@ func getOffset(callingPlayer):
 func drop(callingPlayer):
 	if objectIsRigidBody:
 		objectNode.freeze = false
-		print(objectCollisionShape.name)
 		objectCollisionShape.reparent(objectNode)
 		objectNode.move_child(objectCollisionShape,0)
-		print(objectNode.get_child(0).name)
-		
 	objectNode.reparent(objectNodeParent)
 	isPickedUp = 0
 	callingPlayer.isHoldingSomething = 0

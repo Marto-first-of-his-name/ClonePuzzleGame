@@ -27,7 +27,7 @@ func trigger(actionToDo):
 
 func activate():
 	isOn = not isOn
-	trigger(isOn) # this works coz if isLeft==1 then we're on the left (meaning off) and we want to send the on (meaning 1) signal
+	trigger(isOn)
 	set_animation()
 
 func set_animation():

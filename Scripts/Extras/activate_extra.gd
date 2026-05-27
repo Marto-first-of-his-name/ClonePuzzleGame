@@ -9,7 +9,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func interactOne(callingPlayer: Player):
+
+func interactTwo(callingPlayer: Player):
 	if objectNode.has_method("activate"):
 		objectNode.call("activate")
 	else:

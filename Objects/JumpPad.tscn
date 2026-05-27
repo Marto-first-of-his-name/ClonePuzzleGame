@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://bi7w275067i8o" path="res://Scripts/Objects/jump_pad.gd" id="1_wo6yf"]
 [ext_resource type="Texture2D" uid="uid://b1bjsae8lroav" path="res://Sprites/jumppad.png" id="2_0toew"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0toew"]
-size = Vector2(20, 2)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0toew"]
+atlas = ExtResource("2_0toew")
+region = Rect2(1, 2, 20, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ut3xd"]
 atlas = ExtResource("2_0toew")
@@ -26,12 +27,16 @@ region = Rect2(85, 2, 20, 18)
 atlas = ExtResource("2_0toew")
 region = Rect2(106, 2, 20, 18)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0toew"]
-atlas = ExtResource("2_0toew")
-region = Rect2(1, 17, 20, 3)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmoj6"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0toew")
+}],
+"loop": true,
+"name": &"disabled",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ut3xd")
@@ -49,35 +54,35 @@ animations = [{
 "texture": SubResource("AtlasTexture_q8si2")
 }],
 "loop": true,
-"name": &"active",
+"name": &"enabled",
 "speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0toew")
-}],
-"loop": true,
-"name": &"inactive",
-"speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0toew"]
+size = Vector2(20, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ut3xd"]
 size = Vector2(18, 15)
 
 [node name="JumpPad" type="AnimatableBody2D"]
+collision_mask = 7
 script = ExtResource("1_wo6yf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_kmoj6")
+animation = &"disabled"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_0toew")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -9)
-sprite_frames = SubResource("SpriteFrames_kmoj6")
-animation = &"active"
-
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_ut3xd")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
