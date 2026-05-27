@@ -21,7 +21,6 @@ func _process(delta: float) -> void:
 	pass
 
 func interactOne(callingPlayer: Player):
-	print("trying to pick up")
 	if callingPlayer.isHoldingSomething and not isPickedUp:
 		return
 	

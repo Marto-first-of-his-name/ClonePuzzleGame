@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6l20hofnhx4l"]
+
+[ext_resource type="Script" uid="uid://bked1y36bkyj4" path="res://Scripts/Extras/activate_extra.gd" id="1_42r5e"]
+
+[node name="ActivateExtra" type="Node2D"]
+script = ExtResource("1_42r5e")

@@ -1,5 +1,5 @@
 class_name Interactable extends Area2D
-# I need to add this node to whatever I want to interact with e.g. a box. I add it right under the root
+# I need to add this node to whatever I want to interact with e.g. a box. I add it right under the root (not necessarily index 0, but needs to be a child, not grandchild)
 # Then I add a collision shape to this node (needs to be first index).
 # Then I can add any (up to three) of the Extras (pickUpExtra, activateExtra, etc) to this node.
 
