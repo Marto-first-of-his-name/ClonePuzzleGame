@@ -37,6 +37,7 @@ func interactOne(callingPlayer: Player):
 func pickUp(callingPlayer):
 	#rewrite this so the object just tries to follow the ideal position, that way it still collides with stuff
 	#(animate or move_and_collide)
+	callingPlayer.drop_all.connect(drop)
 	objectNode.reparent(callingPlayer)
 	objectNode.global_position = callingPlayer.global_position + getOffset(callingPlayer)
 	isPickedUp = 1

@@ -7,6 +7,8 @@ var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all
 var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
 signal player_or_clone_dead(playerWhoDied)
+signal drop_all(player)
+var isDead = false
 
 #Nodes & paths
 @onready var PlayerSprite = $Sprite2D #path to the player's sprite
@@ -231,7 +233,6 @@ func clone_set_input(recordedInputs):
 func interact():
 	if not isInteractPressed:
 		return
-	die()
 	if (LeftInteractRaycast.is_colliding()) or (RightInteractRaycast.is_colliding()):
 		var leftCollider = LeftInteractRaycast.get_collider()
 		var rightCollider = RightInteractRaycast.get_collider()
@@ -249,6 +250,11 @@ func interact():
 			rightCollider.call_interaction(isInteractPressed, self)
 
 func die():
+	if isDead: #so we don't try dying multiple times before the reset to spawn multiple bodies
+		return
+	isDead = true
+	drop_all.emit(self)
+	await get_tree().create_timer(0.01).timeout #wait a lil before dying so we can drop everything we're holding
 	player_or_clone_dead.emit(self)
 
 func apply_gravity(delta):

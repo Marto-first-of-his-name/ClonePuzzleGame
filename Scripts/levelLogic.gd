@@ -18,6 +18,7 @@ var player #reference to the current player
 signal levelWon
 signal levelLost
  
+var canRollback = false
 var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already a clone, etc
 var clones : Array[Player]
 var player_scene #stores a preload of the player scene
@@ -60,13 +61,13 @@ func _ready() -> void:
 			timerUI.update_text(str(timer))
 			timerUIs.append(timerUI)
 			currentTimerUIPosition += timerUIPositionOffset
-			
 	#start_level() # I can make this called later when user presses space
 
 func start_level():
 	spawn_player()
 	if not timers.is_empty():
 		start_timer_and_connect_signal(timers[0])
+	canRollback = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -80,7 +81,7 @@ func _process(delta: float) -> void:
 		var currentTimerUI = timerUIs[currentCloneIndex]
 		currentTimerUI.update_text(str(currentTimer.get_time_left()))
 	
-	if Input.is_action_just_pressed("Rollback"):
+	if Input.is_action_just_pressed("Rollback") and canRollback:
 		rollback(0)
 
 # Spawns player at start
@@ -120,6 +121,7 @@ func rollback(wasAutomatic):
 	if currentCloneIndex >= maxClonesForLevel:
 		print("can't rollback coz reached limit")
 		return
+	canRollback = false
 	
 	player_start.update_clones_left(maxClonesForLevel)
 	
@@ -166,17 +168,21 @@ func rollback(wasAutomatic):
 	if not timers.is_empty(): 
 		if currentCloneIndex < timers.size():
 			start_timer_and_connect_signal(timers[currentCloneIndex])
+	
+	canRollback = true
 
 # hides/shows player/clone and enables/disables physics
 func enable_player_or_clone(playerOrClone):
 	playerOrClone.visible = true
 	playerOrClone.collision_shape.disabled = false
 	playerOrClone.set_physics_process(true)
+	playerOrClone.isDead = false
 
 func disable_player_or_clone(playerOrClone):
 	playerOrClone.visible = false
 	playerOrClone.collision_shape.disabled = true
 	playerOrClone.set_physics_process(false)
+	playerOrClone.drop_all.emit(playerOrClone)
 
 func start_timer_and_connect_signal(seconds):
 	currentTimer = Timer.new()
