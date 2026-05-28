@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqgabp2fihaik"]
+
+[ext_resource type="Texture2D" uid="uid://cpcr5l4v3adys" path="res://Sprites/spikes.png" id="1_ecvnm"]
+[ext_resource type="PackedScene" uid="uid://doqdywnr6frdm" path="res://Objects/death_area.tscn" id="3_egaaa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpolu"]
+size = Vector2(29.5, 15.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0leg"]
+size = Vector2(30, 7)
+
+[node name="spikes" type="AnimatableBody2D"]
+
+[node name="Spikes" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ecvnm")
+region_enabled = true
+region_rect = Rect2(196, 16, 60, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.125)
+shape = SubResource("RectangleShape2D_jpolu")
+
+[node name="DeathArea" parent="." instance=ExtResource("3_egaaa")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+position = Vector2(0, -20.5)
+shape = SubResource("RectangleShape2D_b0leg")

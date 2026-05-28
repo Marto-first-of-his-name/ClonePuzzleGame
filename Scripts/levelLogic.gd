@@ -194,7 +194,6 @@ func start_timer_and_connect_signal(seconds):
 	currentTimer.start()
 
 func on_player_or_clone_death(playerWhoDied):
-	print(playerWhoDied)
 	disable_player_or_clone(playerWhoDied)
 	var dead_player = dead_player_scene.instantiate()
 	add_child(dead_player)
