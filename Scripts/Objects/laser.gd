@@ -1,6 +1,6 @@
 extends RayCast2D
 
-@export var rayCastLength := 100.0
+var rayCastLength := 100.0
 
 @onready var line_2d: Line2D = $Line2D
 
@@ -33,3 +33,7 @@ func set_line_end_local(endPointLocal):
 
 func set_line_end_global(endPointglobal):
 	line_2d.set_point_position(1, to_local(endPointglobal))
+
+func set_laser_enabled(isEnabled): # 1 for enable, 0 for disabled
+	enabled = isEnabled
+	line_2d.visible = enabled
