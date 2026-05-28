@@ -6367,5 +6367,5 @@ position = Vector2(-354, 64)
 
 [node name="DeadlyLaser" parent="." instance=ExtResource("8_qw073")]
 position = Vector2(-190, 42)
-rotation = 0.5808213
+rotation = 1.5707964
 laser_raycast_length = 200.0

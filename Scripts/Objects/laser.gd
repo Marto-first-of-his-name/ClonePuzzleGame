@@ -4,6 +4,7 @@ extends RayCast2D
 
 @onready var line_2d: Line2D = $Line2D
 
+signal collided(body)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	if is_colliding():
+		collided.emit(get_collider())
 		print(str("global pos: ", global_position))
 		print(str("collis point: ", get_collision_point()))
 		set_line_end_global(get_collision_point())

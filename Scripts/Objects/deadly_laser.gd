@@ -7,8 +7,13 @@ extends AnimatableBody2D
 func _ready() -> void:
 	laser.set_raycast_length(laser_raycast_length)
 	print(laser.rayCastLength)
+	laser.collided.connect(laser_collided)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func laser_collided(body):
+	if body is Player:
+		body.die()
