@@ -411,7 +411,9 @@ func dash_enter_logic():
 	#velocity = Vector2.ZERO #set velocity to zero
 	
 	Anim.play("Idle") #play the idle animation (I also use it for the dash)
+	var opacity = PlayerSprite.modulate.a
 	PlayerSprite.modulate = Color.PURPLE #tint the player sprite purple
+	PlayerSprite.modulate.a = opacity
 
 func dash_logic(delta):
 	elapsedDashTime = Time.get_ticks_msec() - dashStartTime #set elapsed dash time
@@ -427,7 +429,9 @@ func dash_exit_logic():
 	if !is_on_floor():
 		canDash = false #limit the amount of air dashes someone can do
 	
+	var opacity = PlayerSprite.modulate.a
 	PlayerSprite.modulate = Color.WHITE #untint the sprite
+	PlayerSprite.modulate.a = opacity
 
 
 func jump_enter_logic():
