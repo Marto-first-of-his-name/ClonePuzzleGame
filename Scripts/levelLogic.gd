@@ -13,7 +13,9 @@ var to_reset_scene_path # path to the scene that has everything that needs reset
 var to_reset_scene # scene preloaded to be instantiated later on rollback
 
 var player #reference to the current player
-@export var timeToWaitBetweenCloneSpawns = 1.0
+@export var timeToWaitBetweenCloneSpawns = 0.0 # 0 coz otherwise we get issues with clones
+#spawning a second after the level has loaded and the platforms or others not being where they
+#were when the player played it through
 
 signal levelWon
 signal levelLost
@@ -62,7 +64,9 @@ func _ready() -> void:
 			timerUI.update_text(str(timer))
 			timerUIs.append(timerUI)
 			currentTimerUIPosition += timerUIPositionOffset
-	#start_level() # I can make this called later when user presses space
+	
+	levelHasStarted = 1
+	start_level() # I can make this called later when user presses space while paused
 
 func start_level():
 	spawn_player()
@@ -72,11 +76,6 @@ func start_level():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#start level when player presses space # move this logic to higher node later on (with label for it)
-	if not levelHasStarted:
-		if Input.is_action_just_pressed("start level"): 
-			levelHasStarted = 1
-			start_level()
 	#update timerUIs
 	if currentTimer and not currentTimer.is_stopped():
 		var currentTimerUI = timerUIs[currentCloneIndex]
@@ -130,7 +129,6 @@ func rollback(wasAutomatic):
 	
 	#if the rollback was manual I need to stop the current timer
 	if currentTimer: currentTimer.timeout.disconnect(_on_timer_timeout)
-	
 	# reset and hide player and clones we already had
 	player.position = player_start.position
 	disable_player_or_clone(player)
@@ -149,19 +147,19 @@ func rollback(wasAutomatic):
 	
 	#play the clones we already had
 	for clone in clones:
-		await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
+		#await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 		enable_player_or_clone(clone)
 		set_clone_opacity(clone)
 		player_start.decrement_clones_left()
 	
 	#spawn the newest clone
-	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
+	#await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	clones.append(spawn_clone())
 	set_clone_opacity(clones[-1])
 	player_start.decrement_clones_left()
 	
 	#enable player
-	await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
+	#await get_tree().create_timer(timeToWaitBetweenCloneSpawns).timeout
 	enable_player_or_clone(player)
 	player_start.decrement_clones_left()
 	
@@ -183,6 +181,7 @@ func disable_player_or_clone(playerOrClone):
 	playerOrClone.visible = false
 	playerOrClone.collision_shape.disabled = true
 	playerOrClone.set_physics_process(false)
+	playerOrClone.velocity = Vector2.ZERO
 	playerOrClone.drop_all.emit(playerOrClone)
 
 func start_timer_and_connect_signal(seconds):
