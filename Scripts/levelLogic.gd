@@ -47,6 +47,7 @@ func _ready() -> void:
 	instantiate_vars_and_connect_signals_on_to_reset_scene_ready()
 	current_scene_path = scene_file_path
 	to_reset_scene_path = str(current_scene_path.left(-5),"ToReset.tscn")
+	print(to_reset_scene_path)
 	to_reset_scene = load(to_reset_scene_path)
 	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
