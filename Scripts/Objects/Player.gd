@@ -8,6 +8,7 @@ var currentState = states[0] #what state's logic is being called every frame
 var previousState = null #last state that was being calles
 signal player_or_clone_dead(playerWhoDied)
 signal drop_all(player)
+signal interactPressed(isInteractPressed)
 var isDead = false
 
 #Nodes & paths
@@ -248,6 +249,8 @@ func interact():
 		
 		if rightCollider and isRightInteractable:
 			rightCollider.call_interaction(isInteractPressed, self)
+	else: #if we're not colliding with stuff we just send the signal instead
+		interactPressed.emit(isInteractPressed)
 
 func die():
 	if isDead: #so we don't try dying multiple times before the reset to spawn multiple bodies

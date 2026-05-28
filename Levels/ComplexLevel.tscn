@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://c4odg0gn1221g"]
+[gd_scene load_steps=15 format=4 uid="uid://c4odg0gn1221g"]
 
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_ftydq"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_2m42p"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://hchd66oaqdyg" path="res://Levels/ComplexLevelToReset.tscn" id="5_7pop0"]
 [ext_resource type="PackedScene" uid="uid://doqdywnr6frdm" path="res://Objects/death_area.tscn" id="6_dfpk5"]
 [ext_resource type="PackedScene" uid="uid://dstj4rgwe2igj" path="res://Objects/deadly_laser.tscn" id="8_qw073"]
+[ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="9_7pop0"]
 [ext_resource type="PackedScene" uid="uid://cqgabp2fihaik" path="res://Objects/spikes.tscn" id="9_i00yv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ftydq"]
@@ -6366,6 +6367,9 @@ shape = SubResource("WorldBoundaryShape2D_qw073")
 position = Vector2(-354, 64)
 
 [node name="DeadlyLaser" parent="." instance=ExtResource("8_qw073")]
-position = Vector2(-190, 42)
-rotation = 1.5707964
+position = Vector2(68, -29.000002)
+rotation = -1.5629343
 laser_raycast_length = 200.0
+
+[node name="Box" parent="." instance=ExtResource("9_7pop0")]
+position = Vector2(-86, -7)
