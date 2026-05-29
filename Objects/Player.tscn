@@ -1,7 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://tenhrooodnd5"]
+[gd_scene load_steps=15 format=3 uid="uid://tenhrooodnd5"]
 
 [ext_resource type="Texture2D" uid="uid://dhu8r8eg4jfmh" path="res://Sprites/PlayerSpriteSheet.png" id="1"]
 [ext_resource type="Script" uid="uid://ctnm2qdaq0y2g" path="res://Scripts/Objects/Player.gd" id="2"]
+[ext_resource type="AudioStream" uid="uid://boemb2wh3n2d2" path="res://audio/jump2_sound.wav" id="3_yk4ok"]
+[ext_resource type="AudioStream" uid="uid://bgbtle1wl42fg" path="res://audio/dash_sound.wav" id="4_gijnf"]
+[ext_resource type="AudioStream" uid="uid://iv6uunckpt8p" path="res://audio/death_clone_sound.mp3" id="5_t1tke"]
+[ext_resource type="AudioStream" uid="uid://034wutnfl22t" path="res://audio/death_player_sound.mp3" id="6_qwxmt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n6db0"]
 radius = 9.0
@@ -162,3 +166,21 @@ libraries = {
 autoplay = "Idle"
 
 [node name="TimerWaitBeforePlayback" type="Timer" parent="."]
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_yk4ok")
+volume_db = -6.078
+bus = &"SFX"
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gijnf")
+bus = &"SFX"
+
+[node name="DeathCloneSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_t1tke")
+volume_db = 9.143
+bus = &"SFX"
+
+[node name="DeathPlayerSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_qwxmt")
+bus = &"SFX"

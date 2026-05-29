@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+var rng
+
 #State Vars
 var cloneIndex = 0 # 0 is player, 1 is the first spawned clone, 2 the second, etc
 var states = ["idle", "run", "dash", "fall", "jump", "double_jump"] #list of all states
@@ -23,6 +25,11 @@ var isDead = false
 @onready var RightInteractRaycast: RayCast2D = $RightInteractRaycast
 @onready var LeftInteractRaycast: RayCast2D = $LeftInteractRaycast
 
+#sound vars
+@onready var jump_sound: AudioStreamPlayer2D = $JumpSound
+@onready var dash_sound: AudioStreamPlayer2D = $DashSound
+@onready var death_player_sound: AudioStreamPlayer2D = $DeathPlayerSound
+@onready var death_clone_sound: AudioStreamPlayer2D = $DeathCloneSound
 
 #Squash & Stretch
 var recoverySpeed = 0.03 #how fast you recover from squashes, and stretches
@@ -116,6 +123,7 @@ var isHoldingSomething := 0 # 1 when the player carries or pulls something or ot
 #functions
 func _ready():
 	#use kin functions to set jump velocites
+	rng = RandomNumberGenerator.new()
 	jumpVelocity = -sqrt(2 * gravity * jumpHeight) 
 	doubleJumpVelocity = -sqrt(2 * gravity * doubleJumpHeight) 
 	wallJumpVelocity = -sqrt(2 * gravity * jumpHeight)
@@ -259,6 +267,10 @@ func die():
 	drop_all.emit(self)
 	await get_tree().create_timer(0.01).timeout #wait a lil before dying so we can drop everything we're holding
 	player_or_clone_dead.emit(self)
+	if cloneIndex == 0:
+		death_player_sound.play()
+	else:
+		death_clone_sound.play()
 
 func apply_gravity(delta):
 	#apply gravity in every state except dash
@@ -295,6 +307,8 @@ func squash_stretch(squash, stretch):
 	PlayerSprite.scale.y = stretch
 
 func jump(jumpVelocity):
+	jump_sound.pitch_scale = rng.randf_range(0.7, 1.3)
+	jump_sound.play()
 	velocity.y = 0 #reset velocity
 	velocity.y = jumpVelocity #apply velocity
 	canDash = true #allow the player to dash when they jump
@@ -414,6 +428,7 @@ func dash_enter_logic():
 	var opacity = PlayerSprite.modulate.a
 	PlayerSprite.modulate = Color.PURPLE #tint the player sprite purple
 	PlayerSprite.modulate.a = opacity
+	dash_sound.play()
 
 func dash_logic(delta):
 	elapsedDashTime = Time.get_ticks_msec() - dashStartTime #set elapsed dash time

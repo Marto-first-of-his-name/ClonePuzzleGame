@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://hjrpy6rsv4yy"]
+[gd_scene load_steps=5 format=3 uid="uid://hjrpy6rsv4yy"]
 
 [ext_resource type="Shader" uid="uid://dnavj46rsispq" path="res://UI/shader_blur.gdshader" id="1_8egaj"]
 [ext_resource type="Script" uid="uid://cxmqqi2755oe3" path="res://Scripts/level_won.gd" id="1_dyoaj"]
+[ext_resource type="AudioStream" uid="uid://rcwbm0brq64o" path="res://audio/level_won_sound.wav" id="3_7fets"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dyoaj"]
 shader = ExtResource("1_8egaj")
@@ -89,6 +90,11 @@ offset_top = 68.0
 offset_right = -91.0
 offset_bottom = 92.0
 text = "Quit"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7fets")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="Control/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="Control/NextButton" to="." method="_on_next_button_pressed"]

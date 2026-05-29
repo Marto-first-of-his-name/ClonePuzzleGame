@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://7p3nrjbh7347"]
+[gd_scene load_steps=14 format=3 uid="uid://7p3nrjbh7347"]
 
 [ext_resource type="Script" uid="uid://bi7w275067i8o" path="res://Scripts/Objects/jump_pad.gd" id="1_wo6yf"]
 [ext_resource type="Texture2D" uid="uid://b1bjsae8lroav" path="res://Sprites/jumppad.png" id="2_0toew"]
+[ext_resource type="AudioStream" uid="uid://cu7qke8taruh3" path="res://audio/jump_pad_sound.mp3" id="3_ut3xd"]
+[ext_resource type="AudioStream" uid="uid://bgbtle1wl42fg" path="res://audio/dash_sound.wav" id="4_ox2y6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0toew"]
 atlas = ExtResource("2_0toew")
@@ -84,5 +86,14 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -10.5)
 shape = SubResource("RectangleShape2D_ut3xd")
+
+[node name="ambientSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ut3xd")
+volume_db = -7.429
+
+[node name="onPadSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ox2y6")
+volume_db = -6.078
+pitch_scale = 1.79
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -4,8 +4,21 @@ Mario pipe Image by OpenClipart-Vectors from Pixabay
 Scifi door image from https://pixel900.itch.io/sci-fi-door
 Cables image by https://karsiori.itch.io/pixel-art-pipes-and-cables-modular/download/eyJpZCI6NDU2MjUyOCwiZXhwaXJlcyI6MTc3ODk1MTA5Nn0%3d%2eumuLQpF%2fM%2b4UPHJsk31YforUygo%3d
 spikes by https://froggu999.itch.io/stabby-spikes
+FONTS by Jayvee Enaguas - HarvettFox96 - (https://www.dafont.com/pixel-operator.font?l[]=10&l[]=1)
+world_tileset and fruit  by RottingPixels: (https://rottingpixels.itch.io/four-seasons-platformer-tileset-16x16free)
+
 
 
 Sounds: 
 Game Over by Alphix from Pixabay
 jump by Crunchpix Studio from Pixabay
+fan by Jade Cook from Pixabay
+dash by freesound_community from Pixabay
+death clone by Edimar Filho from Pixabay
+death player by freesound_community from Pixabay
+level won by spuispuin on https://opengameart.org/content/won-orchestral-winning-jingle
+laser by Ahmed Abdulaal from Pixabay
+jump and bg music by Brackeys, Asbjørn Thirslund, Sofia Thirslund
+
+
+

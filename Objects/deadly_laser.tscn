@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dstj4rgwe2igj"]
+[gd_scene load_steps=10 format=3 uid="uid://dstj4rgwe2igj"]
 
 [ext_resource type="Texture2D" uid="uid://tye64fuc3gu2" path="res://Sprites/laser_base.png" id="1_e35t4"]
 [ext_resource type="Script" uid="uid://r4fx6f8svtv6" path="res://Scripts/Objects/deadly_laser.gd" id="1_ryphi"]
 [ext_resource type="PackedScene" uid="uid://cvrkxo4oadptl" path="res://Objects/laser.tscn" id="2_qhh55"]
+[ext_resource type="AudioStream" uid="uid://bcirglgbi4ypr" path="res://audio/laser_sound.mp3" id="4_mphnf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhh55"]
 atlas = ExtResource("1_e35t4")
@@ -57,3 +58,8 @@ shape = SubResource("RectangleShape2D_ryphi")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_qhh55")
+
+[node name="laserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_mphnf")
+pitch_scale = 1.02
+bus = &"SFX"
