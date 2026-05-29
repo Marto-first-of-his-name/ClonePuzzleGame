@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ClonePuzzleGame"
-run/main_scene="uid://c4odg0gn1221g"
+run/main_scene="uid://dlnuu50slmldl"
 config/features=PackedStringArray("4.5")
 run/max_fps=60
 config/icon="res://icon.png"
@@ -24,11 +24,13 @@ settings/stdout/print_fps=true
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
 [gui]
 
+theme/default_font_multichannel_signed_distance_field=true
 theme/custom_font="uid://brksan87fruaq"
 
 [input]
