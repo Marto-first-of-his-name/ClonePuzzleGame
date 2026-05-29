@@ -80,8 +80,8 @@ func start_level():
 		start_timer_and_connect_signal(timers[0])
 	canRollback = true
 	
-	#await get_tree().create_timer(2).timeout
-	#level_lost()
+	await get_tree().create_timer(2).timeout
+	level_lost()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,7 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlnuu50slmldl"]
+[gd_scene load_steps=3 format=3 uid="uid://dlnuu50slmldl"]
 
 [ext_resource type="Script" uid="uid://ddgc4jly37c43" path="res://Scripts/game.gd" id="1_h48gd"]
+[ext_resource type="AudioStream" uid="uid://7enmb826o65m" path="res://audio/time_for_adventure.mp3" id="2_7hykl"]
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_h48gd")
 levels = Array[String](["ComplexLevel", "Tutorial1Walk", "Tutorial2Rollback", "Tutorial3Timer"])
+
+[node name="Levels" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="GUI" type="Node2D" parent="."]
+process_mode = 1
+
+[node name="music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_7hykl")
+autoplay = true
+bus = &"Music"

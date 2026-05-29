@@ -2,6 +2,9 @@ class_name GameController extends Node2D
 
 @export var levels: Array[String]
 
+@onready var levels_node: Node2D = $Levels
+@onready var gui: Node2D = $GUI
+
 var currentGUIScene
 var currentLevelScene
 var currentLevelIndex
@@ -20,7 +23,7 @@ func _ready() -> void:
 	
 	var main_menu = preload("res://UI/main_menu.tscn")
 	currentGUIScene = main_menu.instantiate()
-	add_child(currentGUIScene)
+	gui.add_child(currentGUIScene)
 	pass
 
 
@@ -39,7 +42,7 @@ func replace_current_level(scenePath):
 func add_gui_scene(scenePath):
 	print(scenePath)
 	currentGUIScene = load(scenePath).instantiate()
-	add_child(currentGUIScene)
+	gui.add_child(currentGUIScene)
 
 func delete_current_gui():
 	if currentGUIScene:
@@ -47,7 +50,7 @@ func delete_current_gui():
 
 func add_level_scene(scenePath):
 	currentLevelScene = load(scenePath).instantiate()
-	add_child(currentLevelScene)
+	levels_node.add_child(currentLevelScene)
 	#pause and only unpause when player ready
 
 func delete_current_level():
@@ -56,12 +59,12 @@ func delete_current_level():
 
 func add_remove_level_lost(shouldAdd): #1 if should add, 0 if should remove
 	if shouldAdd:
-		add_child(levelLost)
+		gui.add_child(levelLost)
 	else:
-		remove_child(levelLost)
+		gui.remove_child(levelLost)
 
 func add_remove_level_won(shouldAdd): #1 if should add, 0 if should remove
 	if shouldAdd:
-		add_child(levelWon)
+		gui.add_child(levelWon)
 	else:
-		remove_child(levelWon)
+		gui.remove_child(levelWon)

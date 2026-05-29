@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://fxitf43yraqc"]
+[gd_scene load_steps=5 format=3 uid="uid://fxitf43yraqc"]
 
 [ext_resource type="Script" uid="uid://f7x6dk7p1oqe" path="res://Scripts/level_lost.gd" id="1_oc560"]
 [ext_resource type="Shader" uid="uid://dnavj46rsispq" path="res://UI/shader_blur.gdshader" id="1_xjtbl"]
+[ext_resource type="AudioStream" uid="uid://kylhx082t30c" path="res://audio/level_lost_sound.mp3" id="3_bdvl8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oc560"]
 shader = ExtResource("1_xjtbl")
@@ -71,6 +72,11 @@ offset_right = -91.0
 offset_bottom = 92.0
 text = "Quit"
 metadata/_edit_use_anchors_ = true
+
+[node name="LevelLostSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bdvl8")
+autoplay = true
+bus = &"SFX"
 
 [connection signal="pressed" from="Control/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="Control/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
