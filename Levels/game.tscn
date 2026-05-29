@@ -4,3 +4,4 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_h48gd")
+levels = Array[String](["ComplexLevel", "Tutorial1Walk", "Tutorial2Rollback", "Tutorial3Timer"])

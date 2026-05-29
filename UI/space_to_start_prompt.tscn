@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqm2jdlytbk51"]
+
+[ext_resource type="Script" uid="uid://bquxb3y3nu5f" path="res://Scripts/space_to_start_prompt.gd" id="1_0y0tc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y0tc"]
+bg_color = Color(0.14509805, 0.14509805, 0.14509805, 0.5058824)
+
+[node name="SpaceToStartPrompt" type="Node2D"]
+process_mode = 2
+script = ExtResource("1_0y0tc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -198.0
+offset_top = -131.0
+offset_right = -158.0
+offset_bottom = -91.0
+
+[node name="text_lost" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 5.006
+anchor_top = 3.193
+anchor_right = 5.006
+anchor_bottom = 3.193
+offset_left = -30.240005
+offset_top = 185.28
+offset_right = 483.76
+offset_bottom = 249.28
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_0y0tc")
+text = "Press Space to start when you're ready"
+vertical_alignment = 1

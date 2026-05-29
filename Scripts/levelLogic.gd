@@ -1,4 +1,4 @@
-extends Node2D
+class_name GameLevel extends Node2D
 
 @export var timers: Array[float]
 @onready var nodes_to_reset: Node2D = $NodesToReset
@@ -6,11 +6,12 @@ extends Node2D
 @onready var player_start: Node2D = $PlayerStart
 @onready var maxClonesForLevel = player_start.maxClonesForLevel
 
-var levelHasStarted = 0 # 1 after the player presses space to start
-
 var current_scene_path # path of the current level
 var to_reset_scene_path # path to the scene that has everything that needs resetting
 var to_reset_scene # scene preloaded to be instantiated later on rollback
+
+var isLevelReadyToStart = false
+var hasLevelStarted = false #used to not confuse before start state with later pause states like game lost or won
 
 var player #reference to the current player
 @export var timeToWaitBetweenCloneSpawns = 0.0 # 0 coz otherwise we get issues with clones
@@ -49,7 +50,6 @@ func _ready() -> void:
 	instantiate_vars_and_connect_signals_on_to_reset_scene_ready()
 	current_scene_path = scene_file_path
 	to_reset_scene_path = str(current_scene_path.left(-5),"ToReset.tscn")
-	print(to_reset_scene_path)
 	to_reset_scene = load(to_reset_scene_path)
 	timer_ui_for_each_life_scene = preload("res://Objects/timer_ui_for_each_life.tscn")
 	player_scene = preload("res://Objects/Player.tscn")
@@ -65,14 +65,23 @@ func _ready() -> void:
 			timerUIs.append(timerUI)
 			currentTimerUIPosition += timerUIPositionOffset
 	
-	levelHasStarted = 1
-	start_level() # I can make this called later when user presses space while paused
+	isLevelReadyToStart = true
+	
+	#show space to start prompt
+	Global.game_controller.add_gui_scene("res://UI/space_to_start_prompt.tscn")
+	get_tree().paused = true
+
 
 func start_level():
+	hasLevelStarted = true
+	isLevelReadyToStart = false
 	spawn_player()
 	if not timers.is_empty():
 		start_timer_and_connect_signal(timers[0])
 	canRollback = true
+	
+	#await get_tree().create_timer(2).timeout
+	#level_lost()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -217,13 +226,11 @@ func _level_won(body):
 	print(str("good job, you won by reaching the door with ", body.cloneIndex))
 	body.queue_free()
 	levelWon.emit()
+	Global.game_controller.add_remove_level_won(1)
 	get_tree().paused = true
 
 func level_lost():
-	print(str("RIP, you lost. Restarting level in 3"))
+	print(str("RIP, you lost."))
 	levelLost.emit()
+	Global.game_controller.add_remove_level_lost(1)
 	get_tree().paused = true
-	await get_tree().create_timer(3).timeout
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-	
