@@ -80,8 +80,8 @@ func start_level():
 		start_timer_and_connect_signal(timers[0])
 	canRollback = true
 	
-	await get_tree().create_timer(2).timeout
-	level_lost()
+	#await get_tree().create_timer(2).timeout
+	#level_lost()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -208,6 +208,7 @@ func on_player_or_clone_death(playerWhoDied):
 	dead_player.position = playerWhoDied.position
 	dead_player.get_node("Sprite2D").modulate = playerWhoDied.PlayerSprite.modulate
 	dead_bodies.append(dead_player)
+	playerWhoDied.position = player_start.position #move him so that invis player doesn't stay in death zones coz otherwise might trigger death on respawn
 
 func remove_dead_bodies():
 	for body in dead_bodies:
