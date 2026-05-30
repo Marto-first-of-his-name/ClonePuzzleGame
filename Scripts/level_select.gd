@@ -13,6 +13,7 @@ func _ready() -> void:
 	for level in levels:
 		var level_path = str(level_path_prefix, level, level_path_suffix)
 		var button = Button.new()
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		button.text = level
 		button.pressed.connect(_level_button_pressed.bind(level_path, index))
 		levels_container.add_child(button)

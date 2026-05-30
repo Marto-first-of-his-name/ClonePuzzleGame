@@ -11,7 +11,7 @@ position = Vector2(-132, 69)
 
 [node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("2_nxjqb")]
 position = Vector2(332, 96)
-targets = [NodePath("")]
+targets = [NodePath("../Door")]
 methodNames = Array[String](["open_close_door"])
 
 [node name="PlayerEnd" parent="." instance=ExtResource("3_rwcch")]

@@ -6,7 +6,7 @@
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_h48gd")
-levels = Array[String](["Level0", "Level1", "Tutorial2Rollback", "Tutorial3Timer"])
+levels = Array[String](["DoorWalljumpTimer", "DoorWalljumpTimerReverse"])
 
 [node name="Levels" type="Node2D" parent="."]
 process_mode = 1
