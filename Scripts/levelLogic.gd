@@ -14,7 +14,7 @@ var isLevelReadyToStart = false
 var hasLevelStarted = false #used to not confuse before start state with later pause states like game lost or won
 
 var player #reference to the current player
-@export var timeToWaitBetweenCloneSpawns = 0.0 # 0 coz otherwise we get issues with clones
+var timeToWaitBetweenCloneSpawns = 0.0 # 0 coz otherwise we get issues with clones
 #spawning a second after the level has loaded and the platforms or others not being where they
 #were when the player played it through
 
