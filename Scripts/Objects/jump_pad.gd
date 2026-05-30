@@ -39,5 +39,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		body.velocity.y = -jumpPadStrength
 	if body is RigidBody2D:
 		body.linear_velocity.y = 0
-		body.apply_central_impulse(Vector2(0,-jumpPadStrength))
+		body.apply_central_impulse(Vector2(0,-jumpPadStrength-100))
 	on_pad_sound.play()

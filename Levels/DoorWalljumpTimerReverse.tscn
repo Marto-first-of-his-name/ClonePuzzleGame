@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=4 uid="uid://c4odg0gn1221g"]
+[gd_scene load_steps=10 format=4 uid="uid://c4odg0gn1221g"]
 
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_d08nn"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_83ayy"]
 [ext_resource type="Texture2D" uid="uid://iyo5ah2svs64" path="res://Sprites/Cables - Spritesheet 8x8.png" id="3_b558t"]
 [ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_7y6ki"]
 [ext_resource type="PackedScene" uid="uid://hchd66oaqdyg" path="res://Levels/DoorWalljumpTimerReverseToReset.tscn" id="5_kj5dh"]
-[ext_resource type="PackedScene" uid="uid://doqdywnr6frdm" path="res://Objects/death_area.tscn" id="6_mvwv1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ftydq"]
 texture = ExtResource("2_83ayy")
@@ -6328,9 +6327,6 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_d08nn")
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qw073"]
-distance = -127.0
-
 [node name="LeDoorWalljumpTimerReversevel1" type="Node2D"]
 script = ExtResource("1_d08nn")
 timers = Array[float]([20.0, 4.0])
@@ -6354,9 +6350,3 @@ maxClonesForLevel = 1
 zoom = Vector2(2, 2)
 
 [node name="NodesToReset" parent="." instance=ExtResource("5_kj5dh")]
-
-[node name="killZ" parent="." instance=ExtResource("6_mvwv1")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="killZ"]
-position = Vector2(31, 26)
-shape = SubResource("WorldBoundaryShape2D_qw073")

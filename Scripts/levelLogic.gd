@@ -156,9 +156,9 @@ func rollback(wasAutomatic):
 	currentCloneIndex += 1
 	
 	#if the rollback was manual I need to stop the current timer
-	if currentTimer: currentTimer.timeout.disconnect(_on_timer_timeout)
-	
-	oldTimers.append(currentTimer)
+	if currentTimer:
+		currentTimer.timeout.disconnect(_on_timer_timeout)
+		oldTimers.append(currentTimer)
 	
 	# reset and hide player and clones we already had
 	player.position = player_start.position

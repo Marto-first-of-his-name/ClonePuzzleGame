@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0moig36i6o5t"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_pf3en"]
+[ext_resource type="PackedScene" uid="uid://7p3nrjbh7347" path="res://Objects/JumpPad.tscn" id="2_n527w"]
+[ext_resource type="PackedScene" uid="uid://beratd8we4xax" path="res://Objects/switch.tscn" id="3_oa82o"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_pf3en")]
+position = Vector2(452, -48)
+
+[node name="JumpPad" parent="." instance=ExtResource("2_n527w")]
+position = Vector2(260, 96)
+isEnabled = false
+
+[node name="switch" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_oa82o")]
+position = Vector2(116, 89)
+targets = [NodePath("../JumpPad")]
+methodNames = Array[String](["enable"])
