@@ -26,14 +26,16 @@ var currentCloneIndex = 0 # 0 if first player run, 1 if 2nd run meaning already 
 var clones : Array[Player]
 var player_scene #stores a preload of the player scene
 var currentTimer #store the "Timer" Node that is currently running
+var oldTimers = []#stores all created timers excluding currentTimer
 var timerUIs = [] #array referencing all the timers shown in game. 0 is the first run, n-1 the last one
 var timer_ui_for_each_life_scene #stores a preload of the timer ui scene
+var longestTimerIndex = 0 #so we wait for it when the game is over
 
 var dead_player_scene = preload("res://Objects/dead_player.tscn") 
 var dead_bodies = []
 
 var firstTimerUIPosition #where the first timer is
-var timerUIPositionOffset = Vector2(50.0, 0.0) #where the second timer is in relation to the first
+var timerUIPositionOffset = Vector2(80.0, 0.0) #where the second timer is in relation to the first
 
 # vars that need reconnecting once I reset the level on rollback
 var player_end
@@ -57,13 +59,18 @@ func _ready() -> void:
 	#show timers
 	if not timers.is_empty():
 		var currentTimerUIPosition = firstTimerUIPosition
+		var timerIndex = 0
 		for timer in timers:
+			if timer > timers[longestTimerIndex]: #determine and store the index of the longest timer
+				longestTimerIndex = timerIndex
 			var timerUI = timer_ui_for_each_life_scene.instantiate()
 			add_child(timerUI)
 			timerUI.update_position(currentTimerUIPosition)
 			timerUI.update_text(str(timer))
 			timerUIs.append(timerUI)
 			currentTimerUIPosition += timerUIPositionOffset
+			timerIndex += 1
+	set_timer_opacities()
 	
 	isLevelReadyToStart = true
 	
@@ -89,6 +96,11 @@ func _process(delta: float) -> void:
 	if currentTimer and not currentTimer.is_stopped():
 		var currentTimerUI = timerUIs[currentCloneIndex]
 		currentTimerUI.update_text(str(currentTimer.get_time_left()))
+	
+	if not oldTimers.is_empty():
+		var timerUIIndex = 0
+		for timer in oldTimers:
+			timerUIs[timerUIIndex].update_text(str(timer.get_time_left()))
 	
 	if Input.is_action_just_pressed("Rollback") and canRollback:
 		rollback(0)
@@ -125,6 +137,13 @@ func set_clone_opacity(clone):
 	var opacity = clamp(1 - 0.2 * (currentCloneIndex - clone.cloneIndex + 1), 0.3, 1.0)
 	clone.PlayerSprite.modulate = Color(1,1,1,opacity)
 
+func set_timer_opacities():
+	if timerUIs.is_empty():
+		return
+	for timerUI in timerUIs:
+		timerUI.modulate = Color(1,1,1,0.7)
+	timerUIs[currentCloneIndex].modulate = Color(1,1,1,1)
+
 #function to rollback player and spawn clones. "wasAutomatic" is 1 when called by timer, 0 when called by player signal
 func rollback(wasAutomatic):
 	if currentCloneIndex >= maxClonesForLevel:
@@ -138,6 +157,9 @@ func rollback(wasAutomatic):
 	
 	#if the rollback was manual I need to stop the current timer
 	if currentTimer: currentTimer.timeout.disconnect(_on_timer_timeout)
+	
+	oldTimers.append(currentTimer)
+	
 	# reset and hide player and clones we already had
 	player.position = player_start.position
 	disable_player_or_clone(player)
@@ -176,7 +198,11 @@ func rollback(wasAutomatic):
 	if not timers.is_empty(): 
 		if currentCloneIndex < timers.size():
 			start_timer_and_connect_signal(timers[currentCloneIndex])
-	
+		if currentCloneIndex > 0: #also restart the previous timers
+			for timer in oldTimers:
+				timer.start()
+				
+	set_timer_opacities()
 	canRollback = true
 
 # hides/shows player/clone and enables/disables physics
@@ -193,13 +219,17 @@ func disable_player_or_clone(playerOrClone):
 	playerOrClone.velocity = Vector2.ZERO
 	playerOrClone.drop_all.emit(playerOrClone)
 
+func disable_player_inputs_only():
+	player.inputEnabled = 0
+	player.reset_inputs()
+
 func start_timer_and_connect_signal(seconds):
+	
 	currentTimer = Timer.new()
 	currentTimer.one_shot = true
-	currentTimer.wait_time = seconds
 	add_child(currentTimer)
 	currentTimer.timeout.connect(_on_timer_timeout)
-	currentTimer.start()
+	currentTimer.start(seconds)
 
 func on_player_or_clone_death(playerWhoDied):
 	disable_player_or_clone(playerWhoDied)
@@ -218,7 +248,12 @@ func remove_dead_bodies():
 # do a rollback each time a "life" timer times out
 func _on_timer_timeout():
 	if currentCloneIndex >= maxClonesForLevel:
-		level_lost()
+		if currentCloneIndex == longestTimerIndex:
+			level_lost()
+		else: #wait for longest timer
+			disable_player_inputs_only()
+			await oldTimers[longestTimerIndex].timeout
+			level_lost()
 	else:
 		rollback(1)
 

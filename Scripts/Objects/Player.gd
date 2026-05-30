@@ -218,12 +218,7 @@ func record_input():
 func clone_set_input(recordedInputs):
 	#(clone) read inputs for this frame from recorded inputs
 	if playbackIndex >= recordedInputs.size():
-		movementInput = 0
-		isJumpPressed = 0
-		isJumpReleased = 0
-		jumpInput = 0
-		isDashPressed = 0
-		isInteractPressed = 0
+		reset_inputs()
 		return
 	
 	var frame = recordedInputs[playbackIndex]
@@ -245,6 +240,14 @@ func clone_set_input(recordedInputs):
 	
 	playbackIndex += 1
 
+func reset_inputs():
+	movementInput = 0
+	isJumpPressed = 0
+	isJumpReleased = 0
+	jumpInput = 0
+	isDashPressed = 0
+	isInteractPressed = 0
+	
 func interact():
 	if not isInteractPressed:
 		return
@@ -325,8 +328,10 @@ func jump(jumpVelocity):
 
 func idle_enter_logic():
 	Anim.play("Idle") #play the idle animation
+	last_wall_jumped_from = WallSide.NONE
 
 func idle_logic(delta):
+	
 	if jumpInput:
 		#jump if you press button
 		jump(jumpVelocity)
@@ -349,6 +354,7 @@ func idle_exit_logic():
 
 func run_enter_logic():
 	Anim.play("Run") #play the run animation
+	last_wall_jumped_from = WallSide.NONE
 
 func run_logic(delta):
 	if jumpInput:
@@ -411,7 +417,6 @@ func fall_logic(delta):
 	if is_on_floor():
 		#if player is on a floor
 		set_state("run") #set state to run (we set to run to keep momentum)
-		last_wall_jumped_from = WallSide.NONE
 		#isDoubleJumped = false #reset is double jumped
 		
 		squash_stretch(landingSquash, landingStretch) #apply squash and stretch
@@ -540,7 +545,6 @@ func wall_slide_logic(delta):
 	if is_on_floor():
 		#if you hit the floor set state to idle
 		jumpBufferStartTime = Time.get_ticks_msec() #start jump buffer timer
-		last_wall_jumped_from = WallSide.NONE
 		set_state("idle")
 		
 	

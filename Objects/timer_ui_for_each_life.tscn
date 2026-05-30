@@ -5,6 +5,12 @@
 [node name="TimerForEachLife" type="Node2D"]
 script = ExtResource("1_522da")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 57.5
+offset_bottom = 17.5
+
 [node name="Label" type="Label" parent="."]
 offset_right = 32.0
 offset_bottom = 23.0
