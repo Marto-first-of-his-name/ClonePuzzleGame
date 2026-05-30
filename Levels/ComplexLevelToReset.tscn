@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hchd66oaqdyg"]
+[gd_scene load_steps=12 format=3 uid="uid://hchd66oaqdyg"]
 
 [ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/Platform.tscn" id="3_ws7h1"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="4_ee0w8"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="6_v8tyg"]
 [ext_resource type="PackedScene" uid="uid://dstj4rgwe2igj" path="res://Objects/deadly_laser.tscn" id="7_ws7h1"]
 [ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="8_ee0w8"]
+[ext_resource type="PackedScene" uid="uid://d26k4vekun8h7" path="res://Objects/laser_hit_object.tscn" id="9_ee0w8"]
 
 [sub_resource type="Animation" id="Animation_q3k1l"]
 resource_name = "move_up_down"
@@ -46,26 +47,32 @@ position = Vector2(262, -80)
 
 [node name="ButtonForDoor" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("5_s0ndr")]
 position = Vector2(-190, 64)
-targets = [NodePath("../JumpPad"), NodePath("../Door"), NodePath("../DeadlyLaser")]
-methodNames = Array[String](["enable", "open_close_door", "set_enabled"])
+targets = [NodePath("../DeadlyLaser")]
+methodNames = Array[String](["set_enabled"])
 
 [node name="Door" parent="." instance=ExtResource("6_v8tyg")]
-position = Vector2(-25, 38)
+position = Vector2(83, 38)
 
 [node name="switch" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("5_clk61")]
 position = Vector2(-126, 57)
-targets = [NodePath("../JumpPad"), NodePath("../Door"), NodePath("../DeadlyLaser")]
-methodNames = Array[String](["enable", "open_close_door", "set_enabled"])
+targets = [NodePath("../DeadlyLaser")]
+methodNames = Array[String](["set_enabled"])
 
 [node name="JumpPad" parent="." instance=ExtResource("6_rqsj7")]
 position = Vector2(-307, 64)
 isEnabled = false
 
 [node name="DeadlyLaser" parent="." instance=ExtResource("7_ws7h1")]
-position = Vector2(68, -29.000002)
+position = Vector2(68, 57.000008)
 rotation = -1.5629343
 laser_raycast_length = 200.0
 isEnabled = false
 
 [node name="Box" parent="." instance=ExtResource("8_ee0w8")]
 position = Vector2(-86, -7)
+
+[node name="LaserHitObject" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("9_ee0w8")]
+position = Vector2(-32, 55.000004)
+rotation = -1.58323
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])

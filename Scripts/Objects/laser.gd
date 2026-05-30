@@ -15,7 +15,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
 	if is_colliding():
 		collided.emit(get_collider())
 		set_line_end_global(get_collision_point())
@@ -34,4 +33,6 @@ func set_line_end_global(endPointglobal):
 
 func set_laser_enabled(isEnabled): # 1 for enable, 0 for disabled
 	enabled = isEnabled
+	if enabled: # wait a sec for the line length to be calculated before showing
+		await get_tree().create_timer(0.1).timeout
 	line_2d.visible = enabled
