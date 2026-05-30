@@ -100,7 +100,7 @@ var jumpVelocity #how much to apply to velocity.y to reach jump height
 var doubleJumpHeight = 32 #How high the peak of the double jump is in pixels
 var doubleJumpVelocity #how much to apply to velocity.y to reach double jump height
 
-var isDoubleJumped = false #if you have double jumped
+var isDoubleJumped = true #if you have double jumped
 
 #wall slide
 var wallSlideSpeed = 50 #how fast you slide on a wll
@@ -109,6 +109,12 @@ var wallSlideSpeed = 50 #how fast you slide on a wll
 var wallJumpHeight = 128 #how high you want the peak of your wall jump to be in pixels
 var wallJumpVelocity #how much to apply to velocity.y to reach wall jump height
 var wallJumpThrust = 50 # horizontal thrust in the look direction when wall jumping
+enum WallSide {
+	NONE,
+	LEFT,
+	RIGHT
+}
+var last_wall_jumped_from = WallSide.NONE
 
 # interacts
 var isInteractPressed := 0 # 3 bit value: If 0, then nothing is pressed, if 1 then InteractOne, if 2=1-0 then InteractTwo, if 3=1-1 then InteractOne and InteractTwo, if 4=1-0-0 then InteractThree, etc all the way to 7=1-1-1 then all Interacts
@@ -404,11 +410,12 @@ func fall_logic(delta):
 	if is_on_floor():
 		#if player is on a floor
 		set_state("run") #set state to run (we set to run to keep momentum)
-		isDoubleJumped = false #reset is double jumped
+		last_wall_jumped_from = WallSide.NONE
+		#isDoubleJumped = false #reset is double jumped
 		
 		squash_stretch(landingSquash, landingStretch) #apply squash and stretch
 		
-	if LeftCollisionRaycast.is_colliding() && movementInput == -1 || RightCollisionRaycast.is_colliding() && movementInput == 1:
+	if (LeftCollisionRaycast.is_colliding() && movementInput == -1 && last_wall_jumped_from != WallSide.LEFT) || (RightCollisionRaycast.is_colliding() && movementInput == 1 && last_wall_jumped_from != WallSide.RIGHT):
 		#if your raycast is coliding and you are trying to move in that direction
 		set_state("wall_slide")
 	
@@ -532,6 +539,7 @@ func wall_slide_logic(delta):
 	if is_on_floor():
 		#if you hit the floor set state to idle
 		jumpBufferStartTime = Time.get_ticks_msec() #start jump buffer timer
+		last_wall_jumped_from = WallSide.NONE
 		set_state("idle")
 		
 	
@@ -544,13 +552,17 @@ func wall_slide_logic(delta):
 		set_state("wall_jump")
 
 func wall_slide_exit_logic():
-	isDoubleJumped = false #allow you to double jump again when you wall jump 
+	#isDoubleJumped = false #allow you to double jump again when you wall jump 
+	pass
 
 
 
 func wall_jump_enter_logic():
 	currentSpeed = 0 #erase momentum form run
-	
+	if LeftCollisionRaycast.is_colliding():
+		last_wall_jumped_from = WallSide.LEFT
+	elif RightCollisionRaycast.is_colliding():
+		last_wall_jumped_from = WallSide.RIGHT
 	Anim.play("Jump") #play jump animation
 
 func wall_jump_logic(delta):
