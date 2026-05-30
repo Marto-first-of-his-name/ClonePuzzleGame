@@ -18,8 +18,6 @@ func _process(delta: float) -> void:
 	pass
 	if is_colliding():
 		collided.emit(get_collider())
-		print(str("global pos: ", global_position))
-		print(str("collis point: ", get_collision_point()))
 		set_line_end_global(get_collision_point())
 	else:
 		set_line_end_local(target_position)

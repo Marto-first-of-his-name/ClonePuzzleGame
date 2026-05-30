@@ -40,7 +40,6 @@ func replace_current_level(scenePath):
 	add_level_scene(scenePath)
 
 func add_gui_scene(scenePath):
-	print(scenePath)
 	currentGUIScene = load(scenePath).instantiate()
 	gui.add_child(currentGUIScene)
 

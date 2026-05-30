@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 func laser_collided(body):
 	if body is Player:
 		body.die()
+	if body is LaserHitSurface:
+		body._on_laser_hit(self)
 
 func set_enabled(enabled): # 1 for enable, 0 for disabled
 	isEnabled = enabled

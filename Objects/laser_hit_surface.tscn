@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://by6i1p153a6yo"]
+
+[ext_resource type="Script" uid="uid://cfvniimy4tp12" path="res://Scripts/Objects/laser_hit_surface.gd" id="1_m1as2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c75fi"]
+size = Vector2(10, 1.1875)
+
+[node name="LaserHitSurface" type="AnimatableBody2D"]
+script = ExtResource("1_m1as2")
+methodNames = null
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.40625)
+shape = SubResource("RectangleShape2D_c75fi")

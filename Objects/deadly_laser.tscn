@@ -41,6 +41,8 @@ size = Vector2(14, 2)
 [node name="DeadlyLaser" type="AnimatableBody2D"]
 collision_mask = 7
 script = ExtResource("1_ryphi")
+laser_raycast_length = null
+isEnabled = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
