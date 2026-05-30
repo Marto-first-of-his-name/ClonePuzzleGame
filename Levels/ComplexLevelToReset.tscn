@@ -5,4 +5,4 @@
 [node name="NodesToReset" type="Node2D"]
 
 [node name="PlayerEnd" parent="." instance=ExtResource("4_ee0w8")]
-position = Vector2(-77, -33)
+position = Vector2(-442, -208)

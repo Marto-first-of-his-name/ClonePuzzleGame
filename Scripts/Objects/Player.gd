@@ -290,6 +290,7 @@ func recover_sprite_scale():
 
 
 func set_state(new_state : String):
+	#print(currentState, " -> ", new_state)
 	#update state values
 	previousState = currentState
 	currentState = new_state
@@ -553,6 +554,10 @@ func wall_slide_logic(delta):
 
 func wall_slide_exit_logic():
 	#isDoubleJumped = false #allow you to double jump again when you wall jump 
+	if LeftCollisionRaycast.is_colliding():
+		last_wall_jumped_from = WallSide.LEFT
+	elif RightCollisionRaycast.is_colliding():
+		last_wall_jumped_from = WallSide.RIGHT
 	pass
 
 
