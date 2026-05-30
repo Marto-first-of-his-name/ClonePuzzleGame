@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://dj20ab1hrbf8s"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_qsmt5"]
+[ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="2_qmo78"]
+[ext_resource type="PackedScene" uid="uid://dstj4rgwe2igj" path="res://Objects/deadly_laser.tscn" id="3_lduww"]
+[ext_resource type="PackedScene" uid="uid://d26k4vekun8h7" path="res://Objects/laser_hit_object.tscn" id="4_vkqhm"]
+[ext_resource type="PackedScene" uid="uid://beratd8we4xax" path="res://Objects/switch.tscn" id="5_bct8b"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="6_vg0av"]
+[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="7_xxhlj"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_qsmt5")]
+position = Vector2(-82, -53)
+
+[node name="Box" parent="." instance=ExtResource("2_qmo78")]
+position = Vector2(-288, -61)
+
+[node name="DeadlyLaser" parent="." instance=ExtResource("3_lduww")]
+position = Vector2(203, 210)
+rotation = -1.5707964
+isEnabled = false
+
+[node name="LaserHitObject" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_vkqhm")]
+position = Vector2(-184, 210)
+rotation = -1.5707964
+targets = [NodePath("../DoorLaser")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("6_vg0av")]
+position = Vector2(-323, 218)
+targets = [NodePath("../DoorButton")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="DoorButton" parent="." instance=ExtResource("7_xxhlj")]
+position = Vector2(-88, 191)
+
+[node name="DoorLaser" parent="." instance=ExtResource("7_xxhlj")]
+position = Vector2(-40, -81)
+
+[node name="switchDeadlyLaser" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("5_bct8b")]
+position = Vector2(246, -29)
+targets = [NodePath("../DeadlyLaser")]
+methodNames = Array[String](["set_enabled"])

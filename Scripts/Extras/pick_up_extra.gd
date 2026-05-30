@@ -36,7 +36,7 @@ func interactOne(callingPlayer: Player):
 	
 	if isPickedUp:
 		#we drop no matter if we're looking or not
-		drop(callingPlayer)
+		drop(holder)
 	else:
 		var lastDir = callingPlayer.lastDirection
 		var isOnRightOfPlayer = callingPlayer.RightInteractRaycast.get_collider() == interactableNode

@@ -7,6 +7,7 @@ extends AnimatableBody2D
 @onready var on_pad_sound: AudioStreamPlayer2D = $onPadSound
 
 var last_ambient_sound_position := 0.0
+var bodies_in_area_while_disabled = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +22,8 @@ func _process(delta: float) -> void:
 func enable(shouldEnable):
 	isEnabled = shouldEnable
 	set_animation()
+	for body in bodies_in_area_while_disabled:
+		pad_stuff(body)
 
 func set_animation():
 	if isEnabled:
@@ -34,7 +37,18 @@ func set_animation():
 # something touches the pad
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not isEnabled:
+		if body is CharacterBody2D or RigidBody2D:
+			bodies_in_area_while_disabled.append(body)
 		return
+	pad_stuff(body)
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body in bodies_in_area_while_disabled:
+		bodies_in_area_while_disabled.erase(body)
+
+
+func pad_stuff(body):
 	if body is CharacterBody2D:
 		body.velocity.y = -jumpPadStrength
 	if body is RigidBody2D:

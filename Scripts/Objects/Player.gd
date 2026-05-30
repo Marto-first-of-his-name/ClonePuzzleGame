@@ -139,9 +139,8 @@ func _physics_process(delta):
 		if isPlayingBack:
 			clone_set_input(recordedInputs)
 	else: # is player
-		if inputEnabled:
-			get_input()
-			if isRecordingInput: record_input()
+		if inputEnabled: get_input()
+		if isRecordingInput: record_input()
 	
 	#if rollbackInput:
 	#	rollbackSignal.emit(0)
@@ -355,6 +354,7 @@ func idle_exit_logic():
 func run_enter_logic():
 	Anim.play("Run") #play the run animation
 	last_wall_jumped_from = WallSide.NONE
+	canDash = true
 
 func run_logic(delta):
 	if jumpInput:

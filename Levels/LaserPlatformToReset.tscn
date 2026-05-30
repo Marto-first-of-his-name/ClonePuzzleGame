@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://bki5dj7knj88d"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_2kqtf"]
+[ext_resource type="PackedScene" uid="uid://dstj4rgwe2igj" path="res://Objects/deadly_laser.tscn" id="2_73uy4"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_2kqtf")]
+position = Vector2(444, -32)
+
+[node name="DeadlyLaser" parent="." instance=ExtResource("2_73uy4")]
+position = Vector2(-409, 106)
+rotation = 1.5707964
+laser_raycast_length = 1000.0
+isEnabled = true
+
+[node name="DeadlyLaser2" parent="." instance=ExtResource("2_73uy4")]
+position = Vector2(-410, 57)
+rotation = 1.5707964
+laser_raycast_length = 1000.0
+isEnabled = true
+
+[node name="DeadlyLaser3" parent="." instance=ExtResource("2_73uy4")]
+position = Vector2(-411, 11)
+rotation = 1.5707964
+laser_raycast_length = 1000.0
+isEnabled = true
+
+[node name="DeadlyLaser4" parent="." instance=ExtResource("2_73uy4")]
+position = Vector2(-410, -37)
+rotation = 1.5707964
+laser_raycast_length = 1000.0
+isEnabled = true

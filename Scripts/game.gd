@@ -67,3 +67,11 @@ func add_remove_level_won(shouldAdd): #1 if should add, 0 if should remove
 		gui.add_child(levelWon)
 	else:
 		gui.remove_child(levelWon)
+
+func return_to_main_menu():
+	delete_current_level()
+	delete_current_gui()
+	get_tree().paused = false
+	add_gui_scene("res://UI/main_menu.tscn")
+	add_remove_level_lost(0)
+	add_remove_level_won(0)

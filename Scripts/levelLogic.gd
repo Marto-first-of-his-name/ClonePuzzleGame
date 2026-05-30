@@ -104,6 +104,12 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Rollback") and canRollback:
 		rollback(0)
+	
+	if Input.is_action_just_pressed("Restart Level"):
+		restart_level()
+	
+	if Input.is_action_just_pressed("Esc"):
+		Global.game_controller.return_to_main_menu()
 
 # Spawns player at start
 func spawn_player():
@@ -219,9 +225,13 @@ func disable_player_or_clone(playerOrClone):
 	playerOrClone.velocity = Vector2.ZERO
 	playerOrClone.drop_all.emit(playerOrClone)
 
-func disable_player_inputs_only():
+func disable_player_inputs():
 	player.inputEnabled = 0
 	player.reset_inputs()
+
+func enable_player_inputs():
+	player.reset_inputs()
+	player.inputEnabled = 1
 
 func start_timer_and_connect_signal(seconds):
 	
@@ -251,7 +261,7 @@ func _on_timer_timeout():
 		if currentCloneIndex == longestTimerIndex:
 			level_lost()
 		else: #wait for longest timer
-			disable_player_inputs_only()
+			disable_player_inputs()
 			await oldTimers[longestTimerIndex].timeout
 			level_lost()
 	else:
@@ -270,3 +280,7 @@ func level_lost():
 	levelLost.emit()
 	Global.game_controller.add_remove_level_lost(1)
 	get_tree().paused = true
+
+func restart_level():
+	Global.game_controller.replace_current_level(scene_file_path)
+	

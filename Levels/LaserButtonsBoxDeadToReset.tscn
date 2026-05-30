@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmjwbemhu0epw"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_7jl64"]
+[ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="1_oesrp"]
+[ext_resource type="PackedScene" uid="uid://dstj4rgwe2igj" path="res://Objects/deadly_laser.tscn" id="2_ioblj"]
+[ext_resource type="PackedScene" uid="uid://d26k4vekun8h7" path="res://Objects/laser_hit_object.tscn" id="3_dxn80"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="4_qut5o"]
+[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="5_fphwf"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="Box" parent="." instance=ExtResource("1_oesrp")]
+position = Vector2(-54, 85)
+
+[node name="DeadlyLaser" parent="." instance=ExtResource("2_ioblj")]
+position = Vector2(28, 88)
+rotation = -1.5707964
+
+[node name="LaserHitObject" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_dxn80")]
+position = Vector2(-460, 87)
+rotation = -1.5707964
+targets = [NodePath("../Door2")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Button1" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_qut5o")]
+position = Vector2(-345, 0)
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Button3" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_qut5o")]
+position = Vector2(172, 96)
+targets = [NodePath("../Door3")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Door" parent="." instance=ExtResource("5_fphwf")]
+position = Vector2(-207, -155)
+
+[node name="Door2" parent="." instance=ExtResource("5_fphwf")]
+position = Vector2(-191, -155)
+
+[node name="Door3" parent="." instance=ExtResource("5_fphwf")]
+position = Vector2(-175, -155)
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_7jl64")]
+position = Vector2(-104, -128)
