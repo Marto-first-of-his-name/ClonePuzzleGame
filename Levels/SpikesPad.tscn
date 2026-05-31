@@ -6365,4 +6365,36 @@ rotation = 3.1415927
 position = Vector2(350, -120)
 rotation = 3.1415927
 
+[node name="spikes5" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(139, -120)
+rotation = 3.1415927
+
+[node name="spikes6" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(169, -120)
+rotation = 3.1415927
+
+[node name="spikes7" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(199, -120)
+rotation = 3.1415927
+
+[node name="spikes8" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(229, -120)
+rotation = 3.1415927
+
+[node name="spikes9" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(17, -120)
+rotation = 3.1415927
+
+[node name="spikes10" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(47, -120)
+rotation = 3.1415927
+
+[node name="spikes11" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(77, -120)
+rotation = 3.1415927
+
+[node name="spikes12" parent="." instance=ExtResource("12_2ghww")]
+position = Vector2(107, -120)
+rotation = 3.1415927
+
 [node name="NodesToReset" parent="." instance=ExtResource("8_pml1k")]
