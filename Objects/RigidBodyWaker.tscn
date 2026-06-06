@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpcaikssta2v5"]
+
+[ext_resource type="Script" uid="uid://cfjcsaauqpk6v" path="res://Scripts/Objects/box_waker.gd" id="1_j7288"]
+
+[node name="RigidBodyWaker" type="Node2D"]
+script = ExtResource("1_j7288")
