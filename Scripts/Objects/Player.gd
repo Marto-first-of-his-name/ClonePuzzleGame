@@ -309,7 +309,6 @@ func move_horizontally(subtractor):
 	if isAirMovementLocked:
 		return
 	currentSpeed = move_toward(currentSpeed, maxSpeed, acceleration) #accelerate current speed
-	
 	velocity.x = currentSpeed * movementInput #apply curent speed to velocity and multiply by direction
 
 func squash_stretch(squash, stretch):

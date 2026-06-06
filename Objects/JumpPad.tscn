@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://7p3nrjbh7347"]
+[gd_scene load_steps=21 format=3 uid="uid://7p3nrjbh7347"]
 
 [ext_resource type="Script" uid="uid://bi7w275067i8o" path="res://Scripts/Objects/jump_pad.gd" id="1_wo6yf"]
 [ext_resource type="Texture2D" uid="uid://b1bjsae8lroav" path="res://Sprites/jumppad.png" id="2_0toew"]
+[ext_resource type="Texture2D" uid="uid://b33qgvh5uh7oe" path="res://Sprites/jumppadRestrictive.png" id="3_ptj5s"]
 [ext_resource type="AudioStream" uid="uid://cu7qke8taruh3" path="res://audio/jump_pad_sound.mp3" id="3_ut3xd"]
 [ext_resource type="AudioStream" uid="uid://bgbtle1wl42fg" path="res://audio/dash_sound.wav" id="4_ox2y6"]
 
@@ -29,6 +30,30 @@ region = Rect2(85, 2, 20, 18)
 atlas = ExtResource("2_0toew")
 region = Rect2(106, 2, 20, 18)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmoj6"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(1, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki0f5"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(22, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obcd1"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(43, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kotpr"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(64, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bst2x"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(85, 2, 20, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrx85"]
+atlas = ExtResource("3_ptj5s")
+region = Rect2(106, 2, 20, 18)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_kmoj6"]
 animations = [{
 "frames": [{
@@ -36,7 +61,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_0toew")
 }],
 "loop": true,
-"name": &"disabled",
+"name": &"normal_disabled",
 "speed": 5.0
 }, {
 "frames": [{
@@ -56,7 +81,35 @@ animations = [{
 "texture": SubResource("AtlasTexture_q8si2")
 }],
 "loop": true,
-"name": &"enabled",
+"name": &"normal_enabled",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmoj6")
+}],
+"loop": true,
+"name": &"restricted_disabled",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki0f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obcd1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kotpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bst2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrx85")
+}],
+"loop": true,
+"name": &"restricted_enabled",
 "speed": 4.0
 }]
 
@@ -73,7 +126,7 @@ script = ExtResource("1_wo6yf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -9)
 sprite_frames = SubResource("SpriteFrames_kmoj6")
-animation = &"disabled"
+animation = &"restricted_enabled"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)

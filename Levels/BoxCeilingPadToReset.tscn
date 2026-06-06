@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://5wiwac31d3cy"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_ti5pw"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_ti5pw")]
+position = Vector2(-280, -176)

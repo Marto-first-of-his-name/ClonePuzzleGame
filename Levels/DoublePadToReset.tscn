@@ -1,12 +1,75 @@
-[gd_scene load_steps=3 format=3 uid="uid://wrapu770ol5k"]
+[gd_scene load_steps=8 format=3 uid="uid://wrapu770ol5k"]
 
+[ext_resource type="PackedScene" uid="uid://u2ktiv8bktbm" path="res://Objects/Platform.tscn" id="1_66xry"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_wuh61"]
 [ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="2_d7mrs"]
 
+[sub_resource type="Animation" id="Animation_66xry"]
+resource_name = "up left"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 1.6667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-453, 192), Vector2(-453, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nfepl"]
+_data = {
+&"up left": SubResource("Animation_66xry")
+}
+
+[sub_resource type="Animation" id="Animation_la2wx"]
+resource_name = "up down"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 1.6667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(423, 192), Vector2(423, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r7ml6"]
+_data = {
+&"up down": SubResource("Animation_la2wx")
+}
+
 [node name="NodesToReset" type="Node2D"]
 
-[node name="PlayerEnd" parent="." instance=ExtResource("1_wuh61")]
-position = Vector2(-280, -176)
+[node name="Platform" parent="." instance=ExtResource("1_66xry")]
+position = Vector2(-453, 192)
 
-[node name="Box" parent="." instance=ExtResource("2_d7mrs")]
-position = Vector2(-226, 14)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform"]
+libraries = {
+&"": SubResource("AnimationLibrary_nfepl")
+}
+autoplay = "up left"
+
+[node name="Platform2" parent="." instance=ExtResource("1_66xry")]
+position = Vector2(423, 192)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Platform2"]
+libraries = {
+&"": SubResource("AnimationLibrary_r7ml6")
+}
+autoplay = "up down"
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_wuh61")]
+position = Vector2(-1, -80)
+
+[node name="Box2" parent="." instance=ExtResource("2_d7mrs")]
+position = Vector2(37, 135)

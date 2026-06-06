@@ -3,6 +3,7 @@ var level_select_path = "res://UI/level_select.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_on_play_button_pressed() # to skip menu while testing
 	pass # Replace with function body.
 
 
