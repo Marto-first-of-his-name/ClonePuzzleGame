@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://5wiwac31d3cy"]
+[gd_scene load_steps=6 format=3 uid="uid://5wiwac31d3cy"]
 
 [ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="1_onnna"]
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_ti5pw"]
-[ext_resource type="PackedScene" uid="uid://7p3nrjbh7347" path="res://Objects/JumpPad.tscn" id="2_y81hb"]
 [ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="3_nj34r"]
 [ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="4_grls7"]
 [ext_resource type="PackedScene" uid="uid://cpcaikssta2v5" path="res://Objects/RigidBodyWaker.tscn" id="6_y81hb"]
@@ -10,36 +9,37 @@
 [node name="NodesToReset" type="Node2D"]
 
 [node name="Door3" parent="." instance=ExtResource("4_grls7")]
-position = Vector2(-410, -219)
+position = Vector2(-410, -121)
 
 [node name="Box" parent="." instance=ExtResource("1_onnna")]
-position = Vector2(-166, -185)
-
-[node name="JumpPad" parent="." instance=ExtResource("2_y81hb")]
-position = Vector2(54, 28.999998)
-rotation = -0.7853982
-jumpPadStrength = 600
+position = Vector2(-166, -87)
 
 [node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_nj34r")]
-position = Vector2(262, -128)
-targets = [NodePath("../Door"), NodePath("../Door3")]
-methodNames = Array[String](["open_close_door", "open_close_door"])
+position = Vector2(262, -30)
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])
 
 [node name="Door" parent="." instance=ExtResource("4_grls7")]
-position = Vector2(-164, -167)
+position = Vector2(-164, -69)
 rotation = 1.5707964
 
 [node name="PlayerEnd" parent="." instance=ExtResource("1_ti5pw")]
-position = Vector2(-341, -192)
+position = Vector2(-341, -94)
 
 [node name="Button2" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_nj34r")]
-position = Vector2(-452, 0)
+position = Vector2(-452, 98)
 targets = [NodePath("../Door2")]
 methodNames = Array[String](["open_close_door"])
 
 [node name="Door2" parent="." instance=ExtResource("4_grls7")]
-position = Vector2(-442, -184)
+position = Vector2(-442, -86)
 rotation = -1.5707964
 
 [node name="RigidBodyWaker" parent="." node_paths=PackedStringArray("bodies") instance=ExtResource("6_y81hb")]
+position = Vector2(0, 98)
 bodies = [NodePath("../Box")]
+
+[node name="Button3" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_nj34r")]
+position = Vector2(81, -142)
+targets = [NodePath("../Door3")]
+methodNames = Array[String](["open_close_door"])
