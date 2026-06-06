@@ -67,7 +67,7 @@ var isDashPressed #will be 1 on the frame that the dash button was pressed
 
 #Movement Vars
 #var velocity = Vector2.ZERO #linear velocity applied to move and slide
-
+var isAirMovementLocked = 0
 var currentSpeed = 0 #how much you add to x velocity when moving horizontally
 var maxSpeed = 190 #maximum current speed can reach when moving horizontally
 var acceleration = 25 #by how much does current speed approach max speed when moving
@@ -306,6 +306,8 @@ func set_state(new_state : String):
 #Functions used across multiple states
 
 func move_horizontally(subtractor):
+	if isAirMovementLocked:
+		return
 	currentSpeed = move_toward(currentSpeed, maxSpeed, acceleration) #accelerate current speed
 	
 	velocity.x = currentSpeed * movementInput #apply curent speed to velocity and multiply by direction
@@ -328,6 +330,7 @@ func jump(jumpVelocity):
 func idle_enter_logic():
 	Anim.play("Idle") #play the idle animation
 	last_wall_jumped_from = WallSide.NONE
+	isAirMovementLocked = 0
 
 func idle_logic(delta):
 	
@@ -354,6 +357,7 @@ func idle_exit_logic():
 func run_enter_logic():
 	Anim.play("Run") #play the run animation
 	last_wall_jumped_from = WallSide.NONE
+	isAirMovementLocked = 0
 	canDash = true
 
 func run_logic(delta):
@@ -432,6 +436,7 @@ func fall_exit_logic():
 
 
 func dash_enter_logic():
+	isAirMovementLocked = 0
 	dashDirection = lastDirection #set dash direction (we use lastDirection to make sure we dash even when idle)
 	dashStartTime = Time.get_ticks_msec() #set dash start time to total ticks since the game started
 	
@@ -526,6 +531,7 @@ func double_jump_exit_logic():
 
 
 func wall_slide_enter_logic():
+	isAirMovementLocked = 0
 	velocity = Vector2.ZERO #reset velocity to stop all momentum
 	
 	Anim.play("Wall Slide") #play wall slide animation

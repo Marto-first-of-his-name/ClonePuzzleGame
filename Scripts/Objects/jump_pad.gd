@@ -8,10 +8,13 @@ extends AnimatableBody2D
 
 var last_ambient_sound_position := 0.0
 var bodies_in_area_while_disabled = []
+var pad_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_animation()
+	pad_direction = Vector2.UP.rotated(rotation)
+	print(pad_direction)
 	pass
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,9 +52,17 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 func pad_stuff(body):
-	if body is CharacterBody2D:
-		body.velocity.y = -jumpPadStrength
+	if body is Player:
+		if rotation != 0.0:
+			if body.currentState == "dash":
+				print("Was dashing")
+				body.set_state(body.previousState)
+			body.isAirMovementLocked = 1
+		body.canDash = false
+		body.velocity.x = jumpPadStrength * pad_direction.x
+		body.velocity.y = jumpPadStrength * pad_direction.y
+		print(body.velocity)
 	if body is RigidBody2D:
-		body.linear_velocity.y = 0
-		body.apply_central_impulse(Vector2(0,-jumpPadStrength-100))
+		body.linear_velocity = Vector2.ZERO
+		body.apply_central_impulse((jumpPadStrength+100) * pad_direction)
 	on_pad_sound.play()
