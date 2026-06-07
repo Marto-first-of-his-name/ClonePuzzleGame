@@ -19,7 +19,7 @@ func _ready() -> void:
 		levels_container.add_child(button)
 		index += 1
 		
-	_level_button_pressed(str(level_path_prefix, levels[-1], level_path_suffix), levels.size()-1) # to autostart last level
+	#_level_button_pressed(str(level_path_prefix, levels[-1], level_path_suffix), levels.size()-1) # to autostart last level
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
