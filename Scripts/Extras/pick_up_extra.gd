@@ -71,16 +71,20 @@ func getOffset(callingPlayer):
 func drop(callingPlayer):
 	isPickedUp = 0
 	callingPlayer.isHoldingSomething = 0
+	callingPlayer.drop_all.disconnect(drop)
+	callingPlayer.interactPressed.disconnect(drop_if_interact_one)
+	holder = null
 	if objectIsRigidBody:
 		objectNode.gravity_scale = old_gravity_scale
 		if abs(callingPlayer.global_position.x - objectNode.global_position.x) < 15.0:
 			callingPlayer.global_position.y += -10.0
 		await get_tree().create_timer(0.01).timeout
+		var target_pos = callingPlayer.global_position + pickUpOffset
+		var dir = target_pos - objectNode.global_position
+		if dir.length() > 50:
+			await get_tree().create_timer(0.50).timeout #to not block box when throwing
 		objectNode.remove_collision_exception_with(callingPlayer)
 		callingPlayer.remove_collision_exception_with(objectNode)
-	callingPlayer.drop_all.disconnect(drop)
-	callingPlayer.interactPressed.disconnect(drop_if_interact_one)
-	holder = null
 
 func drop_if_interact_one(interactPressed):
 	var one = interactPressed & 1

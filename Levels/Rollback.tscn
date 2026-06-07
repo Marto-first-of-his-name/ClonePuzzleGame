@@ -6343,7 +6343,7 @@ tile_set = SubResource("TileSet_mh038")
 
 [node name="PlayerStart" parent="." instance=ExtResource("4_3rdyi")]
 position = Vector2(-301, -140)
-maxClonesForLevel = 1
+maxClonesForLevel = 6
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -6360,13 +6360,13 @@ It tells you how many clones you have left."
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -81.0
-offset_top = 5.0
-offset_right = 113.0
-offset_bottom = 41.0
+offset_left = -119.0
+offset_top = -77.0
+offset_right = 75.0
+offset_bottom = -36.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "Try standing on the button then press R to terminate your life and spawn a new clone"
+text = "Press R to spawn a new clone"
 autowrap_mode = 2
 
 [node name="NodesToReset" parent="." instance=ExtResource("5_d43p5")]

@@ -6348,11 +6348,3 @@ position = Vector2(-341, -18)
 zoom = Vector2(2, 2)
 
 [node name="NodesToReset" parent="." instance=ExtResource("13_bt7tn")]
-
-[node name="Label" type="Label" parent="."]
-offset_left = -260.0
-offset_top = -117.0
-offset_right = -76.0
-offset_bottom = -101.0
-theme_override_colors/font_color = Color(0.15127608, 0.15127608, 0.15127608, 1)
-text = "Dash dash dash"

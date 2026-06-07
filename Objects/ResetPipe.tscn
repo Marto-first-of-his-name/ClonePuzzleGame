@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://icvhhaje0gm6"]
+
+[ext_resource type="Texture2D" uid="uid://c1fr4unu1gag4" path="res://Sprites/openclipart-vectors-super-mario-brothers-147465.svg" id="1_jfx58"]
+
+[node name="ResetPipe" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.45833462)
+scale = Vector2(0.083333336, 0.083333366)
+texture = ExtResource("1_jfx58")
+region_rect = Rect2(51, 173, 354, 408)

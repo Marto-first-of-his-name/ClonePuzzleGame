@@ -79,7 +79,7 @@ var airFriction = 60 #how much you subtract velocity when you start moving horiz
 var dashSpeed = 60 #how fast you dash
 var dashDurration = 160  #how long you dash for (in milisecconds)
 
-var canDash = false #can the character dash
+var canDash = true #can the character dash
 var dashStartTime #how many miliseconds passed when you started dashing 
 var elapsedDashTime #how many milisecconds elapsed since you started dashing
 var dashDirection = 1 #direction of dash will be 1 or -1 if you are dashing left or right
@@ -357,7 +357,7 @@ func run_enter_logic():
 	Anim.play("Run") #play the run animation
 	last_wall_jumped_from = WallSide.NONE
 	isAirMovementLocked = 0
-	canDash = false
+	canDash = true
 
 func run_logic(delta):
 	if jumpInput:

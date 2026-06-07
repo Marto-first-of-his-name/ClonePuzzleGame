@@ -65,15 +65,16 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 
 func pad_stuff(body):
-	body.position = position
 	if body is Player:
+		body.canDash = true
 		if restricted:
 			#if body.currentState == "dash":
 				#print("Was dashing")
 				#body.set_state(body.previousState)
+			body.position = position
 			body.set_state("fall")
 			body.isAirMovementLocked = 1
-		body.canDash = false
+			body.canDash = false
 		body.velocity.x = jumpPadStrength * pad_direction.x
 		body.velocity.y = jumpPadStrength * pad_direction.y
 	if body is RigidBody2D:
