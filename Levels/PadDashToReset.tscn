@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://niuw8uixmg7e"]
+[gd_scene load_steps=6 format=3 uid="uid://niuw8uixmg7e"]
 
 [ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_j22pb"]
 [ext_resource type="PackedScene" uid="uid://7p3nrjbh7347" path="res://Objects/JumpPad.tscn" id="2_3etvo"]
 [ext_resource type="PackedScene" uid="uid://beratd8we4xax" path="res://Objects/switch.tscn" id="3_yvjag"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="4_gtj8a"]
+[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="5_g8nkh"]
 
 [node name="NodesToReset" type="Node2D"]
 
 [node name="PlayerEnd" parent="." instance=ExtResource("1_j22pb")]
-position = Vector2(221, -96)
+position = Vector2(331, -96)
 
 [node name="JumpPad" parent="." instance=ExtResource("2_3etvo")]
 position = Vector2(-216, 96)
@@ -18,3 +20,11 @@ jumpPadStrength = 600
 position = Vector2(-436, 89)
 targets = [NodePath("../JumpPad")]
 methodNames = Array[String](["enable"])
+
+[node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_gtj8a")]
+position = Vector2(124, -96)
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Door" parent="." instance=ExtResource("5_g8nkh")]
+position = Vector2(265, -123)

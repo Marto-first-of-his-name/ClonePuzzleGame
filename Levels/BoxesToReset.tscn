@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtjwbpqsfldy5"]
+
+[ext_resource type="PackedScene" uid="uid://85vxv8kghk8d" path="res://Objects/PlayerEnd.tscn" id="1_6a1y0"]
+[ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="2_p3w32"]
+[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="3_dov7o"]
+[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="4_xskuk"]
+
+[node name="NodesToReset" type="Node2D"]
+
+[node name="Door" parent="." instance=ExtResource("3_dov7o")]
+position = Vector2(121, -171)
+
+[node name="Button" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_xskuk")]
+position = Vector2(-431, 174)
+rotation = -1.5707964
+targets = [NodePath("../Door")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Door2" parent="." instance=ExtResource("3_dov7o")]
+position = Vector2(105, -171)
+
+[node name="Button2" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("4_xskuk")]
+position = Vector2(-463, 174)
+rotation = 1.5707964
+targets = [NodePath("../Door2")]
+methodNames = Array[String](["open_close_door"])
+
+[node name="Box3" parent="." instance=ExtResource("2_p3w32")]
+position = Vector2(-381, -71)
+
+[node name="PlayerEnd" parent="." instance=ExtResource("1_6a1y0")]
+position = Vector2(227, -144)

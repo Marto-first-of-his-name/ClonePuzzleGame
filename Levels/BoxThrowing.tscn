@@ -1,13 +1,10 @@
-[gd_scene load_steps=13 format=4 uid="uid://ctdfq7iaqhbhx"]
+[gd_scene load_steps=10 format=4 uid="uid://ctdfq7iaqhbhx"]
 
 [ext_resource type="Script" uid="uid://d2i8u41e0qp5f" path="res://Scripts/levelLogic.gd" id="1_dby67"]
 [ext_resource type="Texture2D" uid="uid://jxyeq1nv4qwr" path="res://Sprites/TerrainTileSet.png" id="2_7w5nb"]
 [ext_resource type="Texture2D" uid="uid://iyo5ah2svs64" path="res://Sprites/Cables - Spritesheet 8x8.png" id="3_varqp"]
 [ext_resource type="PackedScene" uid="uid://kpb6uen3l38s" path="res://Objects/PlayerStart.tscn" id="4_tgk40"]
-[ext_resource type="PackedScene" uid="uid://ceiif4kh14hpt" path="res://Objects/Box.tscn" id="6_wne2o"]
-[ext_resource type="PackedScene" uid="uid://cjjb3avh5r7hf" path="res://Objects/Door.tscn" id="10_gmcef"]
 [ext_resource type="PackedScene" uid="uid://b5qte8sa5h1ht" path="res://Levels/BoxThrowingToReset.tscn" id="13_dby67"]
-[ext_resource type="PackedScene" uid="uid://cv7qlb73e6krm" path="res://Objects/Button.tscn" id="13_m15k0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ftydq"]
 texture = ExtResource("2_7w5nb")
@@ -6347,29 +6344,12 @@ tile_set = SubResource("TileSet_qw073")
 
 [node name="PlayerStart" parent="." instance=ExtResource("4_tgk40")]
 position = Vector2(-227, -234)
+maxClonesForLevel = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Box" parent="." instance=ExtResource("6_wne2o")]
-position = Vector2(-139, -192)
-
-[node name="Box2" parent="." instance=ExtResource("6_wne2o")]
-position = Vector2(37, 53)
-
-[node name="Button" parent="." instance=ExtResource("13_m15k0")]
-position = Vector2(225, -34)
-
-[node name="Button2" parent="." instance=ExtResource("13_m15k0")]
-position = Vector2(-367, 222)
-
 [node name="NodesToReset" parent="." instance=ExtResource("13_dby67")]
-
-[node name="Door" parent="." instance=ExtResource("10_gmcef")]
-position = Vector2(201, 67)
-
-[node name="Door2" parent="." instance=ExtResource("10_gmcef")]
-position = Vector2(217, 67)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -362.0
@@ -6380,16 +6360,16 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "When you throw a ball, the ball is \"thrown\" because it leaves your hand at the same speed your hand was moving.
 
-You can apply the same logic to throw these boxes"
+You can apply the same logic to throw these boxes."
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="."]
-offset_left = -71.0
-offset_top = -221.0
-offset_right = 133.0
-offset_bottom = -147.0
+offset_left = -175.0
+offset_top = -258.0
+offset_right = 82.0
+offset_bottom = -195.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "Notice how pickupables drag a little behind you
-When they are too far they will automatically disconnect from you"
+text = "Remember when I said the pickupables detaching automatically would come in handy later?
+Well, later is now."
 autowrap_mode = 2
