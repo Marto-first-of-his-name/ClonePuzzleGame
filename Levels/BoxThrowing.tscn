@@ -6352,6 +6352,7 @@ zoom = Vector2(2, 2)
 [node name="NodesToReset" parent="." instance=ExtResource("13_dby67")]
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -362.0
 offset_top = -124.0
 offset_right = -105.0
@@ -6364,6 +6365,7 @@ You can apply the same logic to throw these boxes."
 autowrap_mode = 2
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = -175.0
 offset_top = -258.0
 offset_right = 82.0
