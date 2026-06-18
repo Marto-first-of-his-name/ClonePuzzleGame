@@ -10,12 +10,28 @@ var objectCollisionShape
 var holder
 var pickUpOffset
 var old_gravity_scale = 1.0
+var line
+var line_disabled = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	objectNodeParent = objectNode.get_parent()
 	objectIsRigidBody = objectNode is RigidBody2D
 	if objectIsRigidBody:
 		objectCollisionShape = objectNode.get_child(0)
+		
+	var curve_for_line = Curve.new()
+	curve_for_line.add_point(Vector2(0.0, 1.0))
+	curve_for_line.add_point(Vector2(1.0, 0.7))
+	
+	line = Line2D.new()
+	line.end_cap_mode = Line2D.LINE_CAP_ROUND
+	line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	line.width = 3
+	line.width_curve = curve_for_line
+	line.default_color = Color(0.582, 0.293, 0.0, 0.898)
+	line.z_index = -1
+	add_child(line)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +44,16 @@ func _process(delta: float) -> void:
 		else:
 			# Smooth follow
 			objectNode.linear_velocity = dir * 10.0
+			#draw line
+			if not line_disabled:
+				line.points = [
+					objectNode.global_position,
+					target_pos
+				]
+				if dir.length() < 20:
+					line.default_color=Color(1.0, 1.0, 1.0, 1.0)
+				else:
+					line.default_color=Color(1.0, 1.0, 1.0, 1.0-(dir.length()-20)/90)
 
 func interactOne(callingPlayer: Player):
 	if callingPlayer.isHoldingSomething and not isPickedUp:
@@ -48,7 +74,8 @@ func interactOne(callingPlayer: Player):
 func pickUp(callingPlayer):
 	if callingPlayer.isHoldingSomething:
 		return
-	
+	if not line_disabled:
+		line.visible=true
 	callingPlayer.drop_all.connect(drop)
 	callingPlayer.interactPressed.connect(drop_if_interact_one)
 	
@@ -70,6 +97,8 @@ func getOffset(callingPlayer):
 
 func drop(callingPlayer):
 	isPickedUp = 0
+	if not line_disabled:
+		line.visible=false
 	callingPlayer.isHoldingSomething = 0
 	callingPlayer.drop_all.disconnect(drop)
 	callingPlayer.interactPressed.disconnect(drop_if_interact_one)
