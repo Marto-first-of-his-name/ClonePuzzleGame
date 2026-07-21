@@ -51,9 +51,9 @@ func _process(delta: float) -> void:
 					target_pos
 				]
 				if dir.length() < 20:
-					line.default_color=Color(1.0, 1.0, 1.0, 1.0)
+					line.default_color=Color(0.4, 0.0, 0.0, 1.0)
 				else:
-					line.default_color=Color(1.0, 1.0, 1.0, 1.0-(dir.length()-20)/90)
+					line.default_color=Color(0.4, 0.0, 0.0, 1.0-(dir.length()-20)/90)
 
 func interactOne(callingPlayer: Player):
 	if callingPlayer.isHoldingSomething and not isPickedUp:
