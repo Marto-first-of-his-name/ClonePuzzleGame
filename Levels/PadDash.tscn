@@ -6350,6 +6350,16 @@ zoom = Vector2(2, 2)
 
 [node name="NodesToReset" parent="." instance=ExtResource("13_bt7tn")]
 
+[node name="Label3" type="Label" parent="."]
+offset_left = -339.0
+offset_top = 48.0
+offset_right = -135.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Press E to pick up objects"
+autowrap_mode = 2
+
 [node name="Label2" type="Label" parent="."]
 offset_left = -167.0
 offset_top = -197.0
@@ -6362,4 +6372,4 @@ When they are too far they will automatically detach from you. That might come i
 autowrap_mode = 2
 
 [node name="Box" parent="." instance=ExtResource("6_fmitx")]
-position = Vector2(-282, 42)
+position = Vector2(-246, 42)

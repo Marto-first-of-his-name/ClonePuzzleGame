@@ -6351,3 +6351,13 @@ maxClonesForLevel = 1
 zoom = Vector2(2, 2)
 
 [node name="NodesToReset" parent="." instance=ExtResource("12_4onw6")]
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 291.0
+offset_top = -60.0
+offset_right = 495.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "F to flip the switch"
+autowrap_mode = 2

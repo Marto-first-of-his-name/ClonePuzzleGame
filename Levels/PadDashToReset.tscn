@@ -13,11 +13,11 @@ position = Vector2(331, -96)
 
 [node name="JumpPad" parent="." instance=ExtResource("2_3etvo")]
 position = Vector2(-216, 96)
-isEnabled = false
 jumpPadStrength = 600
 
 [node name="switch" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_yvjag")]
 position = Vector2(-436, 89)
+isOn = true
 targets = [NodePath("../JumpPad")]
 methodNames = Array[String](["enable"])
 

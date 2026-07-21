@@ -6375,3 +6375,13 @@ theme_override_font_sizes/font_size = 8
 text = "Remember when I said the pickupables detaching automatically would come in handy later?
 Well, later is now."
 autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="."]
+offset_left = -138.0
+offset_top = -247.0
+offset_right = 63.0
+offset_bottom = -198.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "press shift to dash when mid air"
+autowrap_mode = 2
