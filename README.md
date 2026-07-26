@@ -1,6 +1,8 @@
 # ClonePuzzlesGame
 A platformer where you replicate yourself and your past actions. Work together with your clones to solve the puzzles.
 
+I am currently making the full game here from scratch. For the last <b>playable prototype</b> see the [prototype branch](https://github.com/Marto-first-of-his-name/ClonePuzzleGame/tree/prototype) or the [Prototype V0.11 Release](https://github.com/Marto-first-of-his-name/ClonePuzzleGame/releases#release-prerelease).
+
 
 ### Controls (Coz they aren't shown in game yet)
 
