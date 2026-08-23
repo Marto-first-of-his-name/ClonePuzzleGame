@@ -21,3 +21,15 @@ I am currently making the full game here from scratch. For the last <b>playable 
 
 ## Playstation Controller
 <img width="1436" height="528" alt="image" src="https://github.com/user-attachments/assets/a233d49d-87f1-43b1-9632-98b389dc5e90" />
+
+
+
+# Notes for my returning self
+I moved on to another project rn (yes, I do that quite often) so here are some things I had written down that I didn't get to yet. Also check out the [Jira](https://clonepuzzles.atlassian.net/jira/software/projects/GAME/boards/3?filter=&groupBy=none) if it's still up, I had started working on a polishing plan there.
+- Consider BW Förderung(For this or the physics EM arena game)
+- Make it so you can restart just the latest loop like on uvsu
+- Make it so that you can wall jump on same wall but you actually can't coz U can't move back during wall jumps or they push you too far(could be like it dashing you away from the wall) (This means giving the character less air control in general)
+- Resize the game to small size so it's scalable to different screen sizes. Start by trying out character art until I'm happy with that (Determine the right size in pixels first)
+- Make a level that shows the player that it's input based, not transform. Maybe something simple where he walks and you can make the clone fall but he still walks
+
+Aight, good luck to me if I come back to this to finish it <3
